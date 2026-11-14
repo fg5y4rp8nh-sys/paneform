@@ -50,9 +50,9 @@ const PRODUCTS = [
       'assets/products/tempo/mobile.webp'
     ],
     pages: 6,
-    version: '1.0.1',
+    version: '1.0.2',
     released: '2026-11-13',
-    size: '288 KB',
+    size: '289 KB',
     stack: 'HTML, CSS, JavaScript, GSAP',
     goodFor: 'Hair and beauty salons, barbers, nail and brow studios, clinics and anyone who takes appointments.',
     description: 'Tempo is online booking in two parts that share one set of data. Clients book on a clean four-step page: pick a service, a specialist or anyone available, a day and a free time, then leave a name and phone and get an add-to-calendar file. Your team works in a calendar with a column per specialist, working hours, a now line and a week view. Confirm, check in, complete or mark no-shows with Undo, see client history and spend, and edit services, prices and booking rules. Free times come from each specialist\'s hours and existing bookings, so double bookings cannot happen.',
@@ -67,7 +67,7 @@ const PRODUCTS = [
       'Booking rules in settings, shared data between both pages, sounds, tablet and phone layouts'
     ],
     files: ['index.html', 'book.html', 'style.css', 'data.js', 'app.js', 'sounds.js', 'vendor/', 'fonts/', 'sfx/', 'README.md', 'LICENSE.txt', 'package.json', 'vite.config.js'],
-    changelog: [{ v: '1.0.1', date: '2026-11-15', text: 'Mini calendar: round, centred day marker. Calendar: the "+ time" hint only covers free time and never overlaps a booking. Header and sidebar fixed on tablets.' }, { v: '1.0.0', date: '2026-11-13', text: 'First release.' }]
+    changelog: [{ v: '1.0.2', date: '2026-11-15', text: 'Phone layout: two specialists per screen, pinned time column, times never cut off.' }, { v: '1.0.1', date: '2026-11-15', text: 'Mini calendar: round, centred day marker. Calendar: the "+ time" hint only covers free time and never overlaps a booking. Header and sidebar fixed on tablets.' }, { v: '1.0.0', date: '2026-11-13', text: 'First release.' }]
   },
   {
     slug: 'remit',
@@ -91,9 +91,9 @@ const PRODUCTS = [
       'assets/products/remit/mobile.webp'
     ],
     pages: 6,
-    version: '1.0.0',
+    version: '1.0.1',
     released: '2026-11-13',
-    size: '479 KB',
+    size: '478 KB',
     stack: 'HTML, CSS, JavaScript, GSAP, jsPDF',
     goodFor: 'Freelancers, studios and small businesses who want their own invoicing tool, and developers building one for a client.',
     description: 'Remit is a complete invoicing app that works as soon as you open it. The overview shows what is outstanding, how late it is and how long clients take to pay. Create an invoice or a quote with a live preview of the document, then download a real PDF in one click. Track every invoice as draft, sent, overdue or paid, mark payments with Undo, send reminders and turn an accepted quote into an invoice. Everything is saved in the browser, with a JSON backup in settings.',
@@ -108,7 +108,7 @@ const PRODUCTS = [
       'Saves in the browser with JSON backup, soft UI sounds, tablet and phone layouts'
     ],
     files: ['index.html', 'style.css', 'data.js', 'app.js', 'sounds.js', 'vendor/', 'fonts/', 'sfx/', 'README.md', 'LICENSE.txt', 'package.json', 'vite.config.js'],
-    changelog: [{ v: '1.0.0', date: '2026-11-13', text: 'First release.' }]
+    changelog: [{ v: '1.0.1', date: '2026-11-15', text: 'Tablet tables: long client names truncate cleanly. Phone settings: one field per row.' }, { v: '1.0.0', date: '2026-11-13', text: 'First release.' }]
   },
   {
     slug: 'vettra',
@@ -211,9 +211,9 @@ const PRODUCTS = [
       'assets/products/linden/mobile.webp'
     ],
     pages: 8,
-    version: '1.0.1',
+    version: '1.0.2',
     released: '2026-11-13',
-    size: '616 KB',
+    size: '611 KB',
     stack: 'HTML, CSS, JavaScript, GSAP',
     goodFor: 'Fintech start-ups, neobanks, budgeting apps and family finance products.',
     description: 'Linden is a household money app in smoked green glass over a soft leafy background. The overview has a card stack you can throw, flip and freeze, and a household balance with a forecast that morphs between month, quarter and year. Cards, payments, insights, budgets, savings goals, household members and settings complete the app. Every page enters with smooth GSAP motion, and soft UI sounds can be switched off with one tap.',
@@ -228,7 +228,7 @@ const PRODUCTS = [
       'Soft UI sounds with a remembered on/off switch, phone layout with a tab bar'
     ],
     files: ['index.html', 'style.css', 'data.js', 'app.js', 'sounds.js', 'vendor/', 'fonts/', 'sfx/', 'README.md', 'LICENSE.txt', 'package.json', 'vite.config.js'],
-    changelog: [{ v: '1.0.1', date: '2026-11-15', text: 'Tablet layout: wallet and balance cards use the full width.' }, { v: '1.0.0', date: '2026-11-13', text: 'First release.' }]
+    changelog: [{ v: '1.0.2', date: '2026-11-15', text: 'Phone: search placeholder and balance badge no longer wrap or clip.' }, { v: '1.0.1', date: '2026-11-15', text: 'Tablet layout: wallet and balance cards use the full width.' }, { v: '1.0.0', date: '2026-11-13', text: 'First release.' }]
   },
   {
     slug: 'quorra',
@@ -252,9 +252,9 @@ const PRODUCTS = [
       'assets/products/quorra/mobile.webp'
     ],
     pages: 6,
-    version: '1.0.0',
+    version: '1.0.1',
     released: '2026-11-12',
-    size: '123 KB',
+    size: '37 KB',
     stack: 'HTML, CSS, JavaScript',
     goodFor: 'Sales teams, agencies and B2B companies that track deals, clients and follow-ups.',
     description: 'Quorra is a complete sales CRM front end. The overview shows the pipeline, revenue against target, today’s tasks, team activity and a leaderboard. Deals move across a five-stage board by drag and drop, and every deal opens in a side panel with its stage, contact, next step and timeline. Contacts, a weekly task calendar, reports and settings complete the set.',
@@ -269,6 +269,6 @@ const PRODUCTS = [
       'Phone layout with a slide-out menu and a bottom tab bar'
     ],
     files: ['index.html', 'app.css', 'theme.js', 'data.js', 'core.js', 'pages.js', 'app.js', 'README.md', 'LICENSE.txt', 'package.json', 'vite.config.js'],
-    changelog: [{ v: '1.0.0', date: '2026-11-12', text: 'First release.' }]
+    changelog: [{ v: '1.0.1', date: '2026-11-15', text: 'Phone: contacts table fits the screen, week calendar scrolls by day. Event labels no longer clip.' }, { v: '1.0.0', date: '2026-11-12', text: 'First release.' }]
   }
 ];

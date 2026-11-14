@@ -75,6 +75,7 @@ const addDays = (s, n) => { const d = dt(s); d.setDate(d.getDate() + n); return 
 const NOW = () => { const d = new Date(); return d.getHours() * 60 + d.getMinutes(); };
 const toMin = s => { const [h, m] = s.split(':').map(Number); return h * 60 + m; };
 const tm = m => { const h = Math.floor(m / 60), mm = m % 60, h12 = ((h + 11) % 12) + 1; return `${h12}:${pad(mm)} ${h < 12 ? 'AM' : 'PM'}`; };
+const tmC = m => { const h = Math.floor(m / 60), mm = m % 60, h12 = ((h + 11) % 12) + 1; return `${h12}${mm ? ':' + pad(mm) : ''} ${h < 12 ? 'AM' : 'PM'}`; };
 const tmS = m => { const h = Math.floor(m / 60), mm = m % 60, h12 = ((h + 11) % 12) + 1; return mm ? `${h12}:${pad(mm)}` : `${h12}`; };
 const hr = h => `${((h + 11) % 12) + 1} ${h < 12 ? 'AM' : 'PM'}`;
 const fdo = (s, o) => dt(s).toLocaleDateString('en-US', o);
@@ -224,8 +225,10 @@ function miniCal() {
 }
 function apptHTML(a, style, lanes) {
   const p = stf(a.staff), short = a.dur <= 30, mid = a.dur < 60, c = cli(a.client), s = svc(a.service);
-  const info = short ? `<span class="tm">${tm(a.start)}</span>` : mid || lanes > 1 ? `<span><span class="tm">${tm(a.start)}</span>${lanes > 1 ? '' : ' · ' + esc(s.name)}</span>` : `<span class="tm">${tm(a.start)} – ${tm(a.start + a.dur)}</span><span>${esc(s.name)}</span>`;
-  return `<button class="appt t-${p.tone} ${a.status}${short ? ' short' : ''}" data-appt="${a.id}" style="${style}"><b>${esc(c.name)}</b>${info}</button>`;
+  const T2 = (full, cmp) => `<span class="tf">${full}</span><span class="tc">${cmp}</span>`;
+  if (short) return `<button class="appt t-${p.tone} ${a.status} short" data-appt="${a.id}" style="${style}"><span class="ln"><b>${esc(c.name)}</b><span class="tm">${T2(tm(a.start), tmC(a.start))}</span></span></button>`;
+  const info = mid || lanes > 1 ? `<span><span class="tm">${T2(tm(a.start), tmC(a.start))}</span>${lanes > 1 ? '' : ' · ' + esc(s.name)}</span>` : `<span><span class="tm">${T2(tm(a.start) + ' – ' + tm(a.start + a.dur), tmC(a.start) + ' – ' + tmC(a.start + a.dur))}</span></span><span>${esc(s.name)}</span>`;
+  return `<button class="appt t-${p.tone} ${a.status}" data-appt="${a.id}" style="${style}"><b>${esc(c.name)}</b>${info}</button>`;
 }
 function drawGrid() {
   const g = $('#grid'); if (!g) return;
@@ -238,15 +241,15 @@ function drawGrid() {
   let head, body, cols;
   if (CAL.view === 'day') {
     const team = S.staff.filter(p => !CAL.hide.has(p.id)), d = CAL.date;
-    cols = `64px repeat(${team.length || 1},minmax(0,1fr))`;
+    cols = `var(--tc) repeat(${team.length || 1},minmax(0,1fr))`; g.style.setProperty('--n', team.length || 1); g.dataset.view = 'day';
     head = `<div class="gh"></div>` + team.map(p => { const n = S.appointments.filter(a => a.date === d && a.staff === p.id && live(a)).length; return `<div class="gh"><span class="av tone t-${p.tone}">${ini(p.name)}</span><div><b>${esc(first(p.name))}</b><span>${n} booking${n === 1 ? '' : 's'}</span></div></div>`; }).join('');
     body = `<div class="g-times" style="height:${total}px">${times}</div>` + team.map(p => {
       const off = [p.hours[0] > H0 ? `<div style="position:absolute;left:0;right:0;top:0;height:${y(p.hours[0] * 60)}px;background:#F8F6F1"></div>` : '', p.hours[1] < H1 ? `<div style="position:absolute;left:0;right:0;top:${y(p.hours[1] * 60)}px;bottom:0;background:#F8F6F1"></div>` : ''].join('');
       return `<div class="g-col" data-col="${p.id}" data-date="${d}" style="height:${total}px;${lines}">${off}<div class="ghost-slot"></div>${S.appointments.filter(a => a.date === d && a.staff === p.id && live(a)).map(a => apptHTML(a, `top:${y(a.start) + 2}px;height:${a.dur / 60 * HOUR - 4}px`)).join('')}</div>`;
-    }).join('') + (d === todayISO && showNow ? `<div class="now" style="top:${nowY}px;left:64px"><i>${tmS(now)}</i></div>` : '');
+    }).join('') + (d === todayISO && showNow ? `<div class="now" style="top:${nowY}px;left:var(--tc)"><i>${tmS(now)}</i></div>` : '');
   } else {
     const ws = weekStart(CAL.date), days = Array.from({ length: 7 }, (_, i) => addDays(ws, i));
-    cols = `repeat(7,minmax(0,1fr))`;
+    cols = `repeat(7,minmax(0,1fr))`; g.style.setProperty('--n', 7); g.dataset.view = 'week';
     head = days.map(d => { const n = S.appointments.filter(a => a.date === d && live(a) && !CAL.hide.has(a.staff)).length; return `<div class="gh dayh${d === todayISO ? ' is-today' : ''}" data-day="${d}" style="cursor:pointer"><span>${fdo(d, { weekday: 'short' })} · ${n}</span><b>${+d.slice(8)}</b></div>`; }).join('');
     body = days.map(d => {
       const list = S.appointments.filter(a => a.date === d && live(a) && !CAL.hide.has(a.staff)).sort((a, b) => a.start - b.start);
