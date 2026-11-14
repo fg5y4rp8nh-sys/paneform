@@ -116,7 +116,7 @@ const PRODUCTS = [
     category: 'HR',
     tags: ['HR', 'Recruiting', 'Dark'],
     price: 50,
-    checkout: 'https://paneform.lemonsqueezy.com/buy/REPLACE-VETTRA-ID',
+    checkout: 'https://paneform.lemonsqueezy.com/checkout/buy/9b388d5f-0cd8-433e-b1e0-1fd26af63fcd',
     demo: 'demos/vettra/index.html',
     video: 'assets/products/vettra/reel.mp4',
     poster: 'assets/products/vettra/poster.webp',
