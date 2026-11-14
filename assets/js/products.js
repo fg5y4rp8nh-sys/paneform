@@ -156,7 +156,7 @@ const PRODUCTS = [
     category: 'Analytics',
     tags: ['SaaS', 'Analytics', 'Light'],
     price: 50,
-    checkout: 'https://paneform.lemonsqueezy.com/buy/REPLACE-REVORA-ID',
+    checkout: 'https://paneform.lemonsqueezy.com/checkout/buy/95ceb925-2fe5-4f94-9e7a-07fb20779683',
     demo: 'demos/revora/index.html',
     video: 'assets/products/revora/reel.mp4',
     poster: 'assets/products/revora/poster.webp',
