@@ -75,7 +75,7 @@ const PRODUCTS = [
     category: 'Finance',
     tags: ['Finance', 'Invoices', 'PDF'],
     price: 60,
-    checkout: 'https://paneform.lemonsqueezy.com/buy/REPLACE-REMIT-ID',
+    checkout: 'https://paneform.lemonsqueezy.com/checkout/buy/c70d033e-5f9d-4528-84e9-1df315a44c2e',
     demo: 'demos/remit/index.html',
     video: 'assets/products/remit/reel.mp4',
     poster: 'assets/products/remit/poster.webp',
