@@ -196,7 +196,7 @@ const PRODUCTS = [
     category: 'Finance',
     tags: ['Finance', 'Fintech', 'Animated'],
     price: 60,
-    checkout: 'https://paneform.lemonsqueezy.com/buy/REPLACE-LINDEN-ID',
+    checkout: 'https://paneform.lemonsqueezy.com/checkout/buy/a389decb-94b6-4ae5-9422-10a2511490b7',
     demo: 'demos/linden/index.html',
     video: 'assets/products/linden/reel.mp4',
     poster: 'assets/products/linden/poster.webp',
