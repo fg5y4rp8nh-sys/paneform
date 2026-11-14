@@ -11,6 +11,8 @@ const STORE = {
   // Your Lemon Squeezy store address, e.g. "paneform" for paneform.lemonsqueezy.com
   lemonStore: 'paneform',
   email: 'hello@paneform.com',
+  // Custom project form → your Telegram bot (t.me/paneform732_bot). chat = your Telegram user id.
+  telegram: { bot: 'NGpyRU15WTl3NWpRajZDM2pQYVY3UUI4UzY1SkFUUGxFQUE6MzA2Mzg5OTcyOQ==', chat: '5448288818' },
   threads: 'https://www.threads.net/@paneform',
   instagram: 'https://www.instagram.com/paneform',
   refundDays: 14,

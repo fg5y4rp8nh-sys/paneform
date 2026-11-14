@@ -101,7 +101,7 @@ const FAQ = [
 ];
 const faqHtml = list => list.map(([q, a]) => `<details class="rv"><summary>${q}<i></i></summary><p>${a}</p></details>`).join('');
 
-/* ---------- Custom project request (Netlify Forms) ---------- */
+/* ---------- Custom project request → Telegram bot (STORE.telegram) ---------- */
 function wireRequest() {
   const f = $('#reqForm'); if (!f) return;
   const name = $('#rName'), msg = $('#reqMsg'), btn = $('button[type=submit]', f);
@@ -111,8 +111,14 @@ function wireRequest() {
     if (!name.value.trim()) { name.closest('.fld').classList.add('bad'); name.focus(); return; }
     btn.disabled = true;
     try {
-      const r = await fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams(new FormData(f)).toString() });
-      if (!r.ok) throw new Error(r.status);
+      const d = new FormData(f);
+      if (d.get('bot-field')) { f.hidden = true; $('#reqDone').hidden = false; return; }
+      const v = k => String(d.get(k) || '').trim();
+      const text = ['🆕 Новая заявка с сайта Paneform', '', 'Имя: ' + v('name').slice(0, 120), 'Телефон: ' + (v('phone').slice(0, 60) || '—'), 'Куда писать: ' + (v('contact') || '—'), '', 'О проекте:', v('comment').slice(0, 3000) || '—'].join('\n');
+      const tg = STORE.telegram, bot = atob(tg.bot).split('').reverse().join('');
+      const r = await fetch('https://api.telegram.org/bot' + bot + '/sendMessage', { method: 'POST', body: new URLSearchParams({ chat_id: tg.chat, text }) });
+      const res = await r.json();
+      if (!res.ok) throw new Error(res.description || 'not sent');
       f.hidden = true; $('#reqDone').hidden = false;
     } catch (err) {
       msg.innerHTML = `Couldn’t send right now. Please try again or email <a href="mailto:${STORE.email}">${STORE.email}</a>.`;

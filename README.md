@@ -86,13 +86,10 @@ priced at the sale price already ($60 → $48, $50 → $40).
 
 ## Custom project requests
 
-The form at the bottom of the home page uses **Netlify Forms** — no code or service to set up.
-After you deploy on Netlify, requests appear under Site → Forms → `custom-project`.
-To get each one by email: Site configuration → Notifications → Emails and webhooks →
-Form submission notifications → add your address.
-
-The form only sends on Netlify. On other hosts (or when you open the files locally) it shows a
-message asking people to email `STORE.email` instead.
+The form at the bottom of the home page sends each request straight to your Telegram bot
+(t.me/paneform732_bot). Settings are in `STORE.telegram` in `products.js`: `bot` is the bot token
+(stored reversed and base64-encoded), `chat` is your Telegram user id. You must press **Start** in the
+bot once, otherwise it can't message you. If sending fails, the form asks people to email `STORE.email`.
 
 ## Before going live — checklist
 
