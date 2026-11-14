@@ -50,7 +50,7 @@ const PRODUCTS = [
       'assets/products/tempo/mobile.webp'
     ],
     pages: 6,
-    version: '1.0.0',
+    version: '1.0.1',
     released: '2026-11-13',
     size: '288 KB',
     stack: 'HTML, CSS, JavaScript, GSAP',
@@ -67,7 +67,7 @@ const PRODUCTS = [
       'Booking rules in settings, shared data between both pages, sounds, tablet and phone layouts'
     ],
     files: ['index.html', 'book.html', 'style.css', 'data.js', 'app.js', 'sounds.js', 'vendor/', 'fonts/', 'sfx/', 'README.md', 'LICENSE.txt', 'package.json', 'vite.config.js'],
-    changelog: [{ v: '1.0.0', date: '2026-11-13', text: 'First release.' }]
+    changelog: [{ v: '1.0.1', date: '2026-11-15', text: 'Mini calendar: round, centred day marker. Calendar: the "+ time" hint only covers free time and never overlaps a booking. Header and sidebar fixed on tablets.' }, { v: '1.0.0', date: '2026-11-13', text: 'First release.' }]
   },
   {
     slug: 'remit',
@@ -211,7 +211,7 @@ const PRODUCTS = [
       'assets/products/linden/mobile.webp'
     ],
     pages: 8,
-    version: '1.0.0',
+    version: '1.0.1',
     released: '2026-11-13',
     size: '616 KB',
     stack: 'HTML, CSS, JavaScript, GSAP',
@@ -228,7 +228,7 @@ const PRODUCTS = [
       'Soft UI sounds with a remembered on/off switch, phone layout with a tab bar'
     ],
     files: ['index.html', 'style.css', 'data.js', 'app.js', 'sounds.js', 'vendor/', 'fonts/', 'sfx/', 'README.md', 'LICENSE.txt', 'package.json', 'vite.config.js'],
-    changelog: [{ v: '1.0.0', date: '2026-11-13', text: 'First release.' }]
+    changelog: [{ v: '1.0.1', date: '2026-11-15', text: 'Tablet layout: wallet and balance cards use the full width.' }, { v: '1.0.0', date: '2026-11-13', text: 'First release.' }]
   },
   {
     slug: 'quorra',

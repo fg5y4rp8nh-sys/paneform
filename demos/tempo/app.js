@@ -262,9 +262,18 @@ function slotFromEvent(col, e) {
   return Math.max(T.open * 60, Math.min(m, T.close * 60 - 15));
 }
 document.addEventListener('mousemove', e => {
-  const col = e.target.closest && e.target.closest('.g-col'); if (!col || col.dataset.col === 'week' || e.target.closest('.appt')) return;
-  const gs = $('.ghost-slot', col), HOUR = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--hour')) || 76, m = slotFromEvent(col, e);
-  gs.style.top = (m - S.settings.open * 60) / 60 * HOUR + 2 + 'px'; gs.style.height = HOUR / 2 - 4 + 'px'; gs.textContent = '+ ' + tm(m);
+  const col = e.target.closest && e.target.closest('.g-col'); if (!col || col.dataset.col === 'week') return;
+  const gs = $('.ghost-slot', col);
+  if (e.target.closest('.appt')) { gs.classList.remove('on'); return; }
+  const HOUR = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--hour')) || 76, m = slotFromEvent(col, e);
+  // the ghost only covers free time: inside working hours, never under or over another booking
+  const p = stf(col.dataset.col), d = col.dataset.date, end = Math.min(S.settings.close, p.hours[1]) * 60;
+  const busy = S.appointments.filter(a => a.date === d && a.staff === p.id && live(a));
+  const inside = m < p.hours[0] * 60 || m >= end || busy.some(a => a.start <= m && m < a.start + a.dur);
+  if (inside) { gs.classList.remove('on'); return; }
+  const next = Math.min(end, ...busy.filter(a => a.start > m).map(a => a.start)), len = Math.min(30, next - m);
+  gs.style.top = (m - S.settings.open * 60) / 60 * HOUR + 2 + 'px'; gs.style.height = len / 60 * HOUR - 4 + 'px';
+  gs.classList.toggle('sm', len < 30); gs.textContent = '+ ' + tm(m); gs.classList.add('on');
 });
 
 /* ----- appointment drawer ----- */
