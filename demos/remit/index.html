@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Remit — Invoices & quotes</title>
+<meta name="description" content="A minimal invoicing app: clients, invoices, quotes and one-click PDF. Plain HTML, CSS and JavaScript.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app" id="app">
+  <aside class="side">
+    <div class="brand"><span class="mk"><svg viewBox="0 0 24 24"><path d="M6 3.5h12v17l-3-2-3 2-3-2-3 2z"/><path d="M9 8.5h6M9 12h6"/></svg></span><div><b>Remit</b><small id="bizName">Mason &amp; Reid Studio</small></div></div>
+    <button class="btn ink new-btn" data-act="newInvoice" aria-label="New invoice"><svg class="ic" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg><span>New invoice</span></button>
+    <nav class="nav" id="nav"></nav>
+    <div class="side-note" id="sideNote"></div>
+    <div class="side-foot">
+      <button class="ib" id="soundB" aria-label="Mute sounds"></button>
+      <div class="me"><span class="av" id="meAv">SM</span><div><b id="meName">Sam Mason</b><small>Owner</small></div></div>
+    </div>
+  </aside>
+  <main class="main" id="main">
+    <header class="mtop"><div class="brand"><span class="mk"><svg viewBox="0 0 24 24"><path d="M6 3.5h12v17l-3-2-3 2-3-2-3 2z"/><path d="M9 8.5h6M9 12h6"/></svg></span><div><b>Remit</b></div></div><div class="r"><button class="ib" id="soundM" aria-label="Mute sounds"></button><button class="btn ink sm" data-act="newInvoice"><svg class="ic" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>New</button></div></header>
+    <section class="page" id="p-overview"></section>
+    <section class="page" id="p-invoices"></section>
+    <section class="page" id="p-editor"></section>
+    <section class="page" id="p-quotes"></section>
+    <section class="page" id="p-clients"></section>
+    <section class="page" id="p-settings"></section>
+  </main>
+</div>
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" aria-hidden="true"></aside>
+<div class="menu" id="menu" role="listbox"></div>
+<div class="toast" id="toast" role="status"><span class="ok"><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></span><span id="toastT"></span><button id="undo">Undo</button></div>
+<nav class="tabbar" id="tabbar"></nav>
+<script src="vendor/gsap.min.js"></script>
+<script src="vendor/CustomEase.min.js"></script>
+<script src="vendor/jspdf.umd.min.js"></script>
+<script src="sounds.js"></script>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

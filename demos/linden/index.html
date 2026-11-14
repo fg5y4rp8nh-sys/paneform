@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Linden — Household Money</title>
+<meta name="description" content="A household money app in smoked green glass: card wallet, balance forecast, payments, insights, budgets, savings goals and family members.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="stage">
+  <div class="scene" id="scene"><div class="photo" id="photo"></div><div class="grain"></div></div>
+  <div class="window" id="win">
+    <aside class="side">
+      <div class="logo"><span class="mk"><svg viewBox="0 0 24 24"><path d="M12 2c4.6 3 7 6.6 7 10.5A7 7 0 0 1 13 19.4V22h-2v-2.6A7 7 0 0 1 5 12.5C5 8.6 7.4 5 12 2z"/></svg></span><span>Linden</span></div>
+      <nav class="nav" id="nav"><span class="hl" id="hl"></span></nav>
+      <div class="safe"><span>Safe to spend today</span><b class="num" id="safeN">$0</b><p>$1,190 left until payday on Nov 25 · 13 days</p><div class="bar"><i id="safeBar"></i></div></div>
+      <div class="me"><span class="av" style="--c:#DCF58A">AH</span><div><b>Ada Hale</b><small>Hale household</small></div></div>
+    </aside>
+    <section class="main">
+      <div class="top">
+        <div class="search"><svg class="ic" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4-4"/></svg>Search payments, people, pots<kbd>⌘K</kbd></div>
+        <div class="r">
+          <button class="ib" aria-label="Notifications"><svg class="ic" viewBox="0 0 24 24"><path d="M6 9a6 6 0 0 1 12 0c0 6 2.5 7.5 2.5 7.5h-17S6 15 6 9M10 20a2 2 0 0 0 4 0"/></svg></button>
+          <button class="ib" id="soundB" aria-label="Mute sounds"></button>
+          <button class="ib solid" aria-label="Send money" data-go="payments"><svg class="ic" viewBox="0 0 24 24"><path d="M21 3 3 10.5l7 3 3 7.5zM10 13.5 21 3"/></svg></button>
+        </div>
+      </div>
+      <div class="view" id="view"></div>
+      <aside class="drawer" id="drawer"></aside>
+      <div class="toast" id="toast"><span class="ok"><svg class="ic" viewBox="0 0 24 24" style="width:14px;height:14px;stroke-width:2.6"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></span><span id="toastT"></span><button id="undo">Undo</button></div>
+    </section>
+  </div>
+</div>
+<nav class="tabbar" id="tabbar"></nav>
+<script src="vendor/gsap.min.js"></script>
+<script src="vendor/Draggable.min.js"></script>
+<script src="vendor/CustomEase.min.js"></script>
+<script src="sounds.js"></script>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
