@@ -32,7 +32,6 @@ function layout() {
     <a class="brand" href="${url('index.html')}"><span class="brand-mark"><i></i><i></i></span>${STORE.name}</a>
     <nav class="nav" id="nav">${nav.map(n => `<a href="${url(n[0])}" class="${PAGE === n[2] || (PAGE === 'product' && n[2] === 'templates') ? 'on' : ''}">${n[1]}</a>`).join('')}</nav>
     <div class="hdr-r">
-      <a class="btn sm" href="https://app.lemonsqueezy.com/my-orders" target="_blank" rel="noopener noreferrer" aria-label="My downloads">${I.dl}<span>My downloads</span></a>
       <a class="btn sm ink" href="${url('templates.html')}">Browse templates</a>
       <button class="menu-btn" id="menuBtn" aria-label="Menu">${I.menu}</button>
     </div>
