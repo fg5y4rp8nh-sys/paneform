@@ -237,7 +237,7 @@ const PRODUCTS = [
     tags: ['CRM', 'Sales', 'Light & dark'],
     price: 60,
     // Paste the "Share" link of the product from Lemon Squeezy (Products → … → Share)
-    checkout: 'https://paneform.lemonsqueezy.com/buy/REPLACE-QUORRA-ID',
+    checkout: 'https://paneform.lemonsqueezy.com/checkout/buy/dc7536c9-d5b8-43b8-88cf-ed483f92429a',
     demo: 'demos/quorra/index.html',
     video: 'assets/products/quorra/reel.mp4',
     poster: 'assets/products/quorra/poster.webp',
