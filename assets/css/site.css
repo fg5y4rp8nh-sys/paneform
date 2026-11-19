@@ -205,6 +205,16 @@ section.sec{padding:90px 0}
 .buy .pr span{color:var(--muted);font-size:14.5px}
 .buy .acts{display:flex;flex-direction:column;gap:10px}
 .buy .acts .btn{width:100%}
+.setup{display:flex;align-items:center;gap:13px;margin-top:12px;padding:14px 15px;border-radius:18px;background:var(--soft);border:1px solid var(--line);transition:border-color .2s,background .2s}
+.setup:hover{border-color:var(--ink);background:var(--paper)}
+.setup-ic{width:40px;height:40px;border-radius:12px;background:var(--lime);display:grid;place-items:center;flex-shrink:0}
+.setup-ic svg,.setup-go svg{width:20px;height:20px;fill:none;stroke:var(--ink);stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.setup-t{flex:1;min-width:0}
+.setup-t b{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;font-size:15px;font-weight:600;line-height:1.3}
+.setup-t b em{font-style:normal;font-size:12.5px;font-weight:600;padding:2px 8px;border-radius:999px;background:var(--ink);color:#fff;white-space:nowrap}
+.setup-t small{display:block;margin-top:4px;color:var(--muted);font-size:13.5px;line-height:1.45}
+.setup-go{flex-shrink:0;transition:transform .2s}
+.setup:hover .setup-go{transform:translateX(3px)}
 .buy ul{list-style:none;display:flex;flex-direction:column;gap:9px;margin-top:22px;padding-top:20px;border-top:1px solid var(--line);font-size:14.5px}
 .buy ul li{display:flex;gap:9px;align-items:flex-start}
 .buy ul svg{width:18px;height:18px;flex-shrink:0;margin-top:2px;fill:none;stroke:var(--ink);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}

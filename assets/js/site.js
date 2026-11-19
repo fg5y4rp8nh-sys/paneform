@@ -14,6 +14,7 @@ const priceHtml = p => SALE ? `<s>${usd(p.price)}</s>${usd(finalPrice(p))}` : us
 
 const I = {
   check: '<svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>',
+  rocket: '<svg viewBox="0 0 24 24"><path d="M12.5 15.5 8.5 11.5c1.6-4.4 4.6-7.2 10-8 -.8 5.4-3.6 8.4-8 10z"/><path d="M8.5 11.5H5l2.5-3.5h3.6M12.5 15.5V19l3.5-2.5v-3.6"/><path d="M6.5 16c-1.4.6-2 2-2 3.5 1.5 0 2.9-.6 3.5-2"/></svg>',
   arrow: '<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>',
   eye: '<svg viewBox="0 0 24 24"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>',
   bag: '<svg viewBox="0 0 24 24"><path d="M5 8h14l-1 12H6zM9 8V6a3 3 0 0 1 6 0v2"/></svg>',
@@ -96,6 +97,7 @@ const FAQ = [
   [`What if it doesn’t work for me?`, `Write to us within ${STORE.refundDays} days of buying and you get your money back if the template doesn’t work as shown in the live preview.`],
   ['Can I try a template before buying?', 'Yes. Every template has a live preview — click through all the pages on desktop and phone. The zip you download is exactly what you see.'],
   ['Can you change a template or build something new for me?', 'Yes. Leave a request in the form at the bottom of the home page — a custom web app, a dashboard, a tool that replaces a spreadsheet or changes to one of our templates. We reply within 30 minutes and agree a fixed price before any work starts.'],
+  ['Can you set a template up for me?', `Yes. For ${STORE.setupPrice} we put the template online for you with your logo, name and data, so you can start using it without touching the code. Open the template page and choose “We’ll set it up for you”, or leave a request in the form on the home page.`],
   ['Who handles payment and tax?', 'Checkout is run by Lemon Squeezy, our reseller. They take cards, PayPal and Apple Pay, add the right sales tax or VAT and send you an invoice.']
 ];
 const faqHtml = list => list.map(([q, a]) => `<details class="rv"><summary>${q}<i></i></summary><p>${a}</p></details>`).join('');
@@ -104,6 +106,16 @@ const faqHtml = list => list.map(([q, a]) => `<details class="rv"><summary>${q}<
 function wireRequest() {
   const f = $('#reqForm'); if (!f) return;
   const name = $('#rName'), msg = $('#reqMsg'), btn = $('button[type=submit]', f);
+  const sp = PRODUCTS.find(p => p.slug === new URLSearchParams(location.search).get('setup'));
+  let service = '';
+  if (sp) {
+    service = `Установка шаблона ${sp.name} (${STORE.setupPrice})`;
+    $('#rNote').value = `Please set up ${sp.name} for me: put it online with my logo, name and data.`;
+    $('#custom .kicker').textContent = `Setup · ${STORE.setupPrice}`;
+    $('#custom .req-l h2').textContent = `Let’s set up ${sp.name} for you`;
+    const tick = $('#custom .req-ticks svg').outerHTML;
+    $('#custom .req-ticks').innerHTML = ['Online on its own link, ready to use', 'Your logo, name and colours', sp.slug === 'tempo' ? 'Your services and team — clients book from their phones' : 'Your own data loaded in', 'Works on desktop and phone', 'No code on your side', 'We reply to every request within 30 minutes'].map(t => `<li>${tick}${t}</li>`).join('');
+  }
   name.addEventListener('input', () => { if (name.value.trim()) name.closest('.fld').classList.remove('bad'); });
   f.addEventListener('submit', async e => {
     e.preventDefault(); msg.textContent = '';
@@ -113,7 +125,7 @@ function wireRequest() {
       const d = new FormData(f);
       if (d.get('bot-field')) { f.hidden = true; $('#reqDone').hidden = false; return; }
       const v = k => String(d.get(k) || '').trim();
-      const text = ['🆕 Новая заявка с сайта Paneform', '', 'Имя: ' + v('name').slice(0, 120), 'Телефон: ' + (v('phone').slice(0, 60) || '—'), 'Куда писать: ' + (v('contact') || '—'), '', 'О проекте:', v('comment').slice(0, 3000) || '—'].join('\n');
+      const text = ['🆕 Новая заявка с сайта Paneform', '', 'Имя: ' + v('name').slice(0, 120), 'Телефон: ' + (v('phone').slice(0, 60) || '—'), 'Куда писать: ' + (v('contact') || '—'), ...(service ? ['Услуга: ' + service] : []), '', 'О проекте:', v('comment').slice(0, 3000) || '—'].join('\n');
       const tg = STORE.telegram, bot = atob(tg.bot).split('').reverse().join('');
       const r = await fetch('https://api.telegram.org/bot' + bot + '/sendMessage', { method: 'POST', body: new URLSearchParams({ chat_id: tg.chat, text }) });
       const res = await r.json();
@@ -180,6 +192,11 @@ const Pages = {
         <a class="btn ink lg lemonsqueezy-button" href="${checkoutUrl(p)}">${I.bag}Buy ${p.name}</a>
         <a class="btn lg" href="${url(p.demo)}" target="_blank" rel="noopener noreferrer">${I.eye}Live preview</a>
       </div>
+      <a class="setup" href="${url('index.html')}?setup=${p.slug}#custom">
+        <span class="setup-ic">${I.rocket}</span>
+        <span class="setup-t"><b>We’ll set it up for you <em>${STORE.setupPrice}</em></b><small>${p.slug === 'tempo' ? 'Live online with your logo, services and team — clients book from their own phones.' : 'Live online with your own logo, name and data — no code on your side.'}</small></span>
+        <span class="setup-go">${I.arrow}</span>
+      </a>
       <ul>
         <li>${I.check}Instant download — zip with full source</li>
         <li>${I.check}Unlimited personal and client projects</li>

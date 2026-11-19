@@ -16,6 +16,8 @@ const STORE = {
   threads: 'https://www.threads.net/@paneform',
   instagram: 'https://www.instagram.com/paneform',
   refundDays: 14,
+  // 'Set it up for you' service shown on every template page; requests go to the form on the home page
+  setupPrice: '$70–80',
   // Store-wide sale. The site shows the old price crossed out and the sale price.
   // In Lemon Squeezy each product is priced at the SALE price already, so no discount code is used (code: '').
   // When the sale ends: set on: false here AND put the full price back in Lemon Squeezy.
