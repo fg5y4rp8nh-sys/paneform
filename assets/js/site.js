@@ -58,7 +58,7 @@ function card(p) {
     </a>
     <div class="meta"><div><h3>${p.name} <span>· ${p.title}</span></h3><p>${p.short}</p></div><span class="price${SALE ? ' sale' : ''}">${priceHtml(p)}</span></div>
     <div class="chips"><span class="chip">${p.pages > 1 ? p.pages + ' pages' : 'One screen'}</span>${p.tags.map(t => `<span class="chip">${t}</span>`).join('')}</div>
-    <div class="acts"><a class="btn ink lemonsqueezy-button" href="${checkoutUrl(p)}">${I.bag}Buy now</a><a class="btn lime setup-btn" href="${url('index.html')}?setup=${p.slug}#custom" title="We’ll set it up for you">${I.rocket}Setup · ${STORE.setupPrice}</a></div>
+    <div class="acts"><a class="btn ink lemonsqueezy-button" href="${checkoutUrl(p)}">${I.bag}Buy now</a><a class="btn lime setup-btn" href="${url('index.html')}?setup=${p.slug}#custom" title="We build it live for you">${I.rocket}We build it live · ${STORE.setupPrice}</a></div>
   </article>`;
 }
 function wireCards(root = document) {
@@ -97,7 +97,7 @@ const FAQ = [
   [`What if it doesn’t work for me?`, `Write to us within ${STORE.refundDays} days of buying and you get your money back if the template doesn’t work as shown in the live preview.`],
   ['Can I try a template before buying?', 'Yes. Every template has a live preview — click through all the pages on desktop and phone. The zip you download is exactly what you see.'],
   ['Can you change a template or build something new for me?', 'Yes. Leave a request in the form at the bottom of the home page — a custom web app, a dashboard, a tool that replaces a spreadsheet or changes to one of our templates. We reply within 30 minutes and agree a fixed price before any work starts.'],
-  ['Can you set a template up for me?', `Yes. For ${STORE.setupPrice} we put the template online for you with your logo, name and data, so you can start using it without touching the code. Open the template page and choose “We’ll set it up for you”, or leave a request in the form on the home page.`],
+  ['Can you set a template up for me?', `Yes. For ${STORE.setupPrice} we put the template online for you with your logo, name and data, so you can start using it without touching the code. Open the template page and choose “We build it live”, or leave a request in the form on the home page.`],
   ['Who handles payment and tax?', 'Checkout is run by Lemon Squeezy, our reseller. They take cards, PayPal and Apple Pay, add the right sales tax or VAT and send you an invoice.']
 ];
 const faqHtml = list => list.map(([q, a]) => `<details class="rv"><summary>${q}<i></i></summary><p>${a}</p></details>`).join('');
@@ -111,7 +111,7 @@ function wireRequest() {
   if (sp) {
     service = `Установка шаблона ${sp.name} (${STORE.setupPrice})`;
     $('#rNote').value = `Please set up ${sp.name} for me: put it online with my logo, name and data.`;
-    $('#custom .kicker').textContent = `Setup · ${STORE.setupPrice}`;
+    $('#custom .kicker').textContent = `We build it live · ${STORE.setupPrice}`;
     $('#custom .req-l h2').textContent = `Let’s set up ${sp.name} for you`;
     const tick = $('#custom .req-ticks svg').outerHTML;
     $('#custom .req-ticks').innerHTML = ['Online on its own link, ready to use', 'Your logo, name and colours', sp.slug === 'tempo' ? 'Your services and team — clients book from their phones' : 'Your own data loaded in', 'Works on desktop and phone', 'No code on your side', 'We reply to every request within 30 minutes'].map(t => `<li>${tick}${t}</li>`).join('');
@@ -194,7 +194,7 @@ const Pages = {
       </div>
       <a class="setup" href="${url('index.html')}?setup=${p.slug}#custom">
         <span class="setup-ic">${I.rocket}</span>
-        <span class="setup-t"><b>We’ll set it up for you <em>${STORE.setupPrice}</em></b><small>${p.slug === 'tempo' ? 'Live online with your logo, services and team — clients book from their own phones.' : 'Live online with your own logo, name and data — no code on your side.'}</small></span>
+        <span class="setup-t"><b>We build it live <em>${STORE.setupPrice}</em></b><small>${p.slug === 'tempo' ? 'Live online with your logo, services and team — clients book from their own phones.' : 'Live online with your own logo, name and data — no code on your side.'}</small></span>
         <span class="setup-go">${I.arrow}</span>
       </a>
       <ul>
