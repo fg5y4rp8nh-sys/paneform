@@ -28,7 +28,7 @@ const I = {
 function layout() {
   const nav = [['templates.html', 'Templates', 'templates'], ['license.html', 'Licence', 'license'], ['faq.html', 'FAQ', 'faq']];
   document.body.insertAdjacentHTML('afterbegin', `${SALE ? `
-  <div class="promo"><div class="wrap"><span class="tag">−${SALE.percent}%</span><span><b>${SALE.label}</b> on every template${saleEnds()}<span class="pm-x"> — no code needed</span></span><a href="${url('templates.html')}">Shop now ${I.arrow}</a></div></div>` : ''}
+  <div class="promo"><div class="wrap"><span class="tag">−${SALE.percent}%</span><span><b>${SALE.label}</b> on all ready-made apps${saleEnds()}</span><a href="${url('templates.html')}">Shop now ${I.arrow}</a></div></div>` : ''}
   <header class="hdr"><div class="wrap">
     <a class="brand" href="${url('index.html')}"><span class="brand-mark"><i></i><i></i></span>${STORE.name}</a>
     <nav class="nav" id="nav">${nav.map(n => `<a href="${url(n[0])}" class="${PAGE === n[2] || (PAGE === 'product' && n[2] === 'templates') ? 'on' : ''}">${n[1]}</a>`).join('')}</nav>
@@ -39,7 +39,7 @@ function layout() {
   </div></header>`);
   document.body.insertAdjacentHTML('beforeend', `
   <footer class="ftr"><div class="wrap">
-    <div><a class="brand" href="${url('index.html')}"><span class="brand-mark"><i></i><i></i></span>${STORE.name}</a><p>${STORE.tagline}. Plain HTML, CSS and JavaScript — yours to change and ship.</p></div>
+    <div><a class="brand" href="${url('index.html')}"><span class="brand-mark"><i></i><i></i></span>${STORE.name}</a><p>${STORE.tagline} — SaaS, B2B portals, internal tools and integrations, built and hosted for you.</p></div>
     <div><h4>Shop</h4><ul><li><a href="${url('templates.html')}">All templates</a></li>${CATEGORIES.filter(c => PRODUCTS.some(p => p.category === c)).map(c => `<li><a href="${url('templates.html')}#${encodeURIComponent(c)}">${c}</a></li>`).join('')}</ul></div>
     <div><h4>Help</h4><ul><li><a href="${url('faq.html')}">FAQ</a></li><li><a href="${url('license.html')}">Licence</a></li><li><a href="https://app.lemonsqueezy.com/my-orders" target="_blank" rel="noopener noreferrer">My downloads</a></li></ul></div>
     <div class="copy"><span>© ${new Date().getFullYear()} ${STORE.name}</span><span><a href="${url('terms.html')}">Terms</a> · <a href="${url('terms.html')}#refunds">Refunds</a> · <a href="${url('terms.html')}#privacy">Privacy</a></span></div>
@@ -152,7 +152,7 @@ const Pages = {
     $('#homeFaq').innerHTML = faqHtml(FAQ.slice(0, 6));
     loadLemon();
     // categories without templates yet show "Coming soon" instead of an empty link
-    $$('.cat[href*="#"]').forEach(a => {
+    $$('.cat[href^="templates.html#"]').forEach(a => {
       const c = decodeURIComponent(a.getAttribute('href').split('#')[1]);
       if (!PRODUCTS.some(p => p.category === c)) { a.classList.add('off'); a.removeAttribute('href'); a.insertAdjacentHTML('beforeend', '<em class="soon-t">Coming soon</em>'); }
     });

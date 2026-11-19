@@ -104,7 +104,7 @@ section.sec{padding:90px 0}
 .soon b{color:var(--ink);font-size:19px;letter-spacing:-.02em}
 
 /* Categories */
-.cats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.cats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
 .cat{padding:22px;border-radius:var(--r);background:var(--paper);border:1px solid var(--line);transition:transform .25s,border-color .25s}
 .cat:hover{transform:translateY(-3px);border-color:var(--ink)}
 .cat .ic{display:grid;place-items:center;width:42px;height:42px;border-radius:13px;background:var(--soft);margin-bottom:18px}
@@ -215,10 +215,8 @@ section.sec{padding:90px 0}
 .setup-t small{display:block;margin-top:4px;color:var(--muted);font-size:13.5px;line-height:1.45}
 .setup-go{flex-shrink:0;transition:transform .2s}
 .pcard .acts .btn{padding:0 14px}
-.pcard{container-type:inline-size}
-.pcard .acts{grid-template-columns:auto 1fr}
-.pcard .acts .btn.ink{padding:0 18px}
-@container (max-width:384px){.pcard .acts{grid-template-columns:1fr}}
+.pcard .acts{display:flex;flex-wrap:wrap}
+.pcard .acts .btn{width:auto;padding:0 18px}
 .setup:hover .setup-go{transform:translateX(3px)}
 .buy ul{list-style:none;display:flex;flex-direction:column;gap:9px;margin-top:22px;padding-top:20px;border-top:1px solid var(--line);font-size:14.5px}
 .buy ul li{display:flex;gap:9px;align-items:flex-start}

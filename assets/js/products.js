@@ -7,7 +7,7 @@
 
 const STORE = {
   name: 'Paneform',
-  tagline: 'Web app templates for real businesses',
+  tagline: 'Custom software and ready-made web apps',
   // Your Lemon Squeezy store address, e.g. "paneform" for paneform.lemonsqueezy.com
   lemonStore: 'paneform',
   email: '',
@@ -30,47 +30,6 @@ const STORE = {
 const CATEGORIES = ['CRM', 'Finance', 'E-commerce', 'Booking', 'Operations', 'Analytics', 'HR', 'Energy'];
 
 const PRODUCTS = [
-  {
-    slug: 'tempo',
-    name: 'Tempo',
-    title: 'Salon & clinic booking',
-    short: 'A booking page for clients and a team calendar for salons, studios and clinics',
-    category: 'Booking',
-    tags: ['Booking', 'Calendar', 'Salon'],
-    price: 60,
-    checkout: 'https://paneform.lemonsqueezy.com/checkout/buy/e6418292-a10f-44f4-b212-be51c001719a',
-    demo: 'demos/tempo/index.html',
-    video: 'assets/products/tempo/reel.mp4',
-    poster: 'assets/products/tempo/poster.webp',
-    cover: 'assets/products/tempo/cover.webp',
-    images: [
-      'assets/products/tempo/cover.webp',
-      'assets/products/tempo/book.webp',
-      'assets/products/tempo/week.webp',
-      'assets/products/tempo/appt.webp',
-      'assets/products/tempo/services.webp',
-      'assets/products/tempo/mobile.webp'
-    ],
-    pages: 6,
-    version: '1.0.2',
-    released: '2026-11-13',
-    size: '289 KB',
-    stack: 'HTML, CSS, JavaScript, GSAP',
-    goodFor: 'Hair and beauty salons, barbers, nail and brow studios, clinics and anyone who takes appointments.',
-    description: 'Tempo is online booking in two parts that share one set of data. Clients book on a clean four-step page: pick a service, a specialist or anyone available, a day and a free time, then leave a name and phone and get an add-to-calendar file. Your team works in a calendar with a column per specialist, working hours, a now line and a week view. Confirm, check in, complete or mark no-shows with Undo, see client history and spend, and edit services, prices and booking rules. Free times come from each specialist\'s hours and existing bookings, so double bookings cannot happen.',
-    features: [
-      'Client booking page: service, specialist or anyone available, day and time, details',
-      'Confirmation screen with an add-to-calendar (.ics) file',
-      'Day calendar with a column per specialist, working hours and a now line; week view',
-      'Click an empty slot to book it; free times respect hours, service length and other bookings',
-      'Appointment panel: confirm, check in, complete, cancel or no-show, all with Undo',
-      'Appointments list, clients with visits and spend, and full client history',
-      'Services and team: edit minutes and prices inline, hide services from online booking',
-      'Booking rules in settings, shared data between both pages, sounds, tablet and phone layouts'
-    ],
-    files: ['index.html', 'book.html', 'style.css', 'data.js', 'app.js', 'sounds.js', 'vendor/', 'fonts/', 'sfx/', 'README.md', 'LICENSE.txt', 'package.json', 'vite.config.js'],
-    changelog: [{ v: '1.0.2', date: '2026-11-15', text: 'Phone layout: two specialists per screen, pinned time column, times never cut off.' }, { v: '1.0.1', date: '2026-11-15', text: 'Mini calendar: round, centred day marker. Calendar: the "+ time" hint only covers free time and never overlaps a booking. Header and sidebar fixed on tablets.' }, { v: '1.0.0', date: '2026-11-13', text: 'First release.' }]
-  },
   {
     slug: 'remit',
     name: 'Remit',
