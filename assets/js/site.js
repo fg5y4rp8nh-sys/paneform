@@ -40,8 +40,7 @@ function layout() {
   <footer class="ftr"><div class="wrap">
     <div><a class="brand" href="${url('index.html')}"><span class="brand-mark"><i></i><i></i></span>${STORE.name}</a><p>${STORE.tagline}. Plain HTML, CSS and JavaScript — yours to change and ship.</p></div>
     <div><h4>Shop</h4><ul><li><a href="${url('templates.html')}">All templates</a></li>${CATEGORIES.filter(c => PRODUCTS.some(p => p.category === c)).map(c => `<li><a href="${url('templates.html')}#${encodeURIComponent(c)}">${c}</a></li>`).join('')}</ul></div>
-    <div><h4>Help</h4><ul><li><a href="${url('faq.html')}">FAQ</a></li><li><a href="${url('license.html')}">Licence</a></li><li><a href="https://app.lemonsqueezy.com/my-orders" target="_blank" rel="noopener noreferrer">My downloads</a></li><li><a href="mailto:${STORE.email}">${STORE.email}</a></li></ul></div>
-    <div><h4>Follow</h4><ul><li><a href="${STORE.threads}" target="_blank" rel="noopener noreferrer">Threads</a></li><li><a href="${STORE.instagram}" target="_blank" rel="noopener noreferrer">Instagram</a></li></ul></div>
+    <div><h4>Help</h4><ul><li><a href="${url('faq.html')}">FAQ</a></li><li><a href="${url('license.html')}">Licence</a></li><li><a href="https://app.lemonsqueezy.com/my-orders" target="_blank" rel="noopener noreferrer">My downloads</a></li></ul></div>
     <div class="copy"><span>© ${new Date().getFullYear()} ${STORE.name}</span><span><a href="${url('terms.html')}">Terms</a> · <a href="${url('terms.html')}#refunds">Refunds</a> · <a href="${url('terms.html')}#privacy">Privacy</a></span></div>
   </div></footer>`);
   $('#menuBtn').onclick = () => $('#nav').classList.toggle('on');
