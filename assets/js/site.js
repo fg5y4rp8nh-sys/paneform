@@ -89,15 +89,17 @@ function reveal() {
 
 /* ---------- FAQ (shared by home and faq page) ---------- */
 const FAQ = [
+  ['Who is Paneform for?', 'For companies and small businesses that need software to run their work — a SaaS product, a B2B portal, a CRM, internal tools or an app that replaces messy Excel sheets — and for developers and agencies who want finished code to build on. You can use an app for your own business or for your clients.'],
+  ['What are my options?', `Three ways to work with us. <b>Buy now</b> — you get the full code of a ready app and run it yourself. <b>We build it live</b> — for ${STORE.setupPrice} we take a ready app, add your logo and data and put it online for you. <b>Custom project</b> — we build software for your company from scratch: a SaaS product, a B2B portal, internal tools, an app that replaces your spreadsheets or integrations between the services you already use (CRM, payments, Google Sheets, Telegram and more). We host it and automate the routine work. The price is agreed before we start.`],
+  ['What’s the difference between “Buy now” and “We build it live”?', '<b>Buy now</b> gives you the files. To use them you open, edit and host them yourself, so it suits people who are comfortable with websites. <b>We build it live</b> means we do all of that for you: you get a link to your own working app with your name, logo and data, ready on desktop and phone.'],
+  ['Do I need to know how to code?', 'Only if you buy the code and set it up yourself. With “We build it live” or a custom project you don’t touch any code — we handle setup, hosting and changes.'],
+  ['How does a custom project work?', 'You send the form and we reply within 30 minutes. We agree what you need and a fixed price, build it for your company, put it online and set up automations such as reminders, reports or alerts to email or Telegram. You see progress along the way and get a working app at the end.'],
+  ['Can I try an app before buying?', 'Yes. Every app has a live preview — click through all the pages on desktop and phone. The code you download is exactly what you see.'],
   ['What do I get after paying?', `A zip file with the full source: HTML, CSS and JavaScript, a README, a licence file and a ready Vite setup. The download link appears on the screen right after payment and is emailed to you. You can download it again any time from <a href="https://app.lemonsqueezy.com/my-orders" target="_blank" rel="noopener noreferrer">My downloads</a>.`],
-  ['Do I need React or any framework?', 'No. Every template runs by opening index.html in a browser. There are no libraries to install. If you prefer a dev server, run npm install and npm run dev.'],
   ['Can I use it for a client?', 'Yes — on unlimited client and personal projects, for as long as you like. You can’t resell or share the template itself as a template or UI kit.'],
-  ['How do I connect my own data?', 'All sample data sits in one place (data.js or the DATA object at the top of app.js). Replace it with responses from your API using the same field names, and every chart, table and total follows. The README shows exactly where.'],
-  ['Do I get updates?', 'Yes, free for life. When a template is updated, your download link serves the newest version and the change is listed on its page.'],
-  [`What if it doesn’t work for me?`, `Write to us within ${STORE.refundDays} days of buying and you get your money back if the template doesn’t work as shown in the live preview.`],
-  ['Can I try a template before buying?', 'Yes. Every template has a live preview — click through all the pages on desktop and phone. The zip you download is exactly what you see.'],
-  ['Can you change a template or build something new for me?', 'Yes. Leave a request in the form at the bottom of the home page — a custom web app, a dashboard, a tool that replaces a spreadsheet or changes to one of our templates. We reply within 30 minutes and agree a fixed price before any work starts.'],
-  ['Can you set a template up for me?', `Yes. For ${STORE.setupPrice} we put the template online for you with your logo, name and data, so you can start using it without touching the code. Open the template page and choose “We build it live”, or leave a request in the form on the home page.`],
+  ['How do I connect my own data?', 'All sample data sits in one place (data.js or the DATA object at the top of app.js). Replace it with your own records or responses from your API using the same field names, and every chart, table and total follows. The README shows exactly where. Or choose “We build it live” and we do it for you.'],
+  ['Do I get updates?', 'Yes, free for life. When an app is updated, your download link serves the newest version and the change is listed on its page.'],
+  [`What if it doesn’t work for me?`, `Message us within ${STORE.refundDays} days of buying and you get your money back if the app doesn’t work as shown in the live preview.`],
   ['Who handles payment and tax?', 'Checkout is run by Lemon Squeezy, our reseller. They take cards, PayPal and Apple Pay, add the right sales tax or VAT and send you an invoice.']
 ];
 const faqHtml = list => list.map(([q, a]) => `<details class="rv"><summary>${q}<i></i></summary><p>${a}</p></details>`).join('');
@@ -111,10 +113,15 @@ function wireRequest() {
   if (sp) {
     service = `Установка шаблона ${sp.name} (${STORE.setupPrice})`;
     $('#rNote').value = `Please set up ${sp.name} for me: put it online with my logo, name and data.`;
-    $('#custom .kicker').textContent = `We build it live · ${STORE.setupPrice}`;
-    $('#custom .req-l h2').textContent = `Let’s set up ${sp.name} for you`;
-    const tick = $('#custom .req-ticks svg').outerHTML;
-    $('#custom .req-ticks').innerHTML = ['Online on its own link, ready to use', 'Your logo, name and colours', sp.slug === 'tempo' ? 'Your services and team — clients book from their phones' : 'Your own data loaded in', 'Works on desktop and phone', 'No code on your side', 'We reply to every request within 30 minutes'].map(t => `<li>${tick}${t}</li>`).join('');
+    $('#custom .req-l h2').textContent = `Let’s launch ${sp.name} for your business`;
+    $('#reqSteps').innerHTML = [
+      ['Send the form', 'We reply within 30 minutes.'],
+      ['We agree the details', 'Your logo, colours, data and any changes you need.'],
+      [`We adapt ${sp.name} to your business`, sp.slug === 'tempo' ? 'Your services, team and opening hours — clients book from their own phones.' : 'Your company name, your records and your numbers instead of the demo.'],
+      ['We put it online', 'Hosting and your own link or domain, all set up for you.'],
+      ['Need more? We automate it', 'Reminders, reports and alerts to email or Telegram.'],
+      ['You start using it', 'On desktop and phone — no code on your side.']
+    ].map(([t, d]) => `<li><b>${t}</b><span>${d}</span></li>`).join('');
   }
   name.addEventListener('input', () => { if (name.value.trim()) name.closest('.fld').classList.remove('bad'); });
   f.addEventListener('submit', async e => {
@@ -142,7 +149,7 @@ const Pages = {
   home() {
     const sorted = [...PRODUCTS].sort((a, b) => b.released.localeCompare(a.released));
     $('#latest').innerHTML = sorted.slice(0, 6).map(card).join('') + (sorted.length < 3 ? `<div class="soon rv"><b>New templates every week</b><span>Clinic booking, shop admin and invoicing are next. Follow on Threads to see them first.</span><a class="btn sm" href="${STORE.threads}" target="_blank" rel="noopener noreferrer">Follow on Threads</a></div>` : '');
-    $('#homeFaq').innerHTML = faqHtml(FAQ);
+    $('#homeFaq').innerHTML = faqHtml(FAQ.slice(0, 6));
     loadLemon();
     // categories without templates yet show "Coming soon" instead of an empty link
     $$('.cat[href*="#"]').forEach(a => {
