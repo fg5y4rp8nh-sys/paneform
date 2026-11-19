@@ -120,7 +120,7 @@ function wireRequest() {
       if (!res.ok) throw new Error(res.description || 'not sent');
       f.hidden = true; $('#reqDone').hidden = false;
     } catch (err) {
-      msg.innerHTML = `Couldn’t send right now. Please try again or email <a href="mailto:${STORE.email}">${STORE.email}</a>.`;
+      msg.innerHTML = `Couldn’t send right now. Please try again in a minute.`;
     } finally { btn.disabled = false; }
   });
 }

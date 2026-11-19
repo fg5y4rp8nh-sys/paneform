@@ -10,7 +10,7 @@ const STORE = {
   tagline: 'Web app templates for real businesses',
   // Your Lemon Squeezy store address, e.g. "paneform" for paneform.lemonsqueezy.com
   lemonStore: 'paneform',
-  email: 'hello@paneform.com',
+  email: '',
   // Custom project form → your Telegram bot (t.me/paneform732_bot). chat = your Telegram user id.
   telegram: { bot: 'NGpyRU15WTl3NWpRajZDM2pQYVY3UUI4UzY1SkFUUGxFQUE6MzA2Mzg5OTcyOQ==', chat: '5448288818' },
   threads: 'https://www.threads.net/@paneform',
