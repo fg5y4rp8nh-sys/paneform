@@ -58,7 +58,7 @@ function card(p) {
     </a>
     <div class="meta"><div><h3>${p.name} <span>· ${p.title}</span></h3><p>${p.short}</p></div><span class="price${SALE ? ' sale' : ''}">${priceHtml(p)}</span></div>
     <div class="chips"><span class="chip">${p.pages > 1 ? p.pages + ' pages' : 'One screen'}</span>${p.tags.map(t => `<span class="chip">${t}</span>`).join('')}</div>
-    <div class="acts"><a class="btn ink lemonsqueezy-button" href="${checkoutUrl(p)}">${I.bag}Buy now</a><a class="btn" href="${url(p.demo)}" target="_blank" rel="noopener noreferrer">${I.eye}Live preview</a></div>
+    <div class="acts"><a class="btn ink lemonsqueezy-button" href="${checkoutUrl(p)}">${I.bag}Buy now</a><a class="btn lime setup-btn" href="${url('index.html')}?setup=${p.slug}#custom" title="We’ll set it up for you">${I.rocket}Setup · ${STORE.setupPrice}</a></div>
   </article>`;
 }
 function wireCards(root = document) {
@@ -231,6 +231,13 @@ const Pages = {
 };
 
 layout();
+// Reload always opens a page from the top; a #section link still jumps once, then the address is cleaned
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 (Pages[PAGE] || (() => {}))();
+if (PAGE === 'home' && (location.hash || location.search)) {
+  const target = location.hash && document.getElementById(location.hash.slice(1));
+  if (target) requestAnimationFrame(() => target.scrollIntoView());
+  history.replaceState(null, '', location.pathname);
+}
 $$('[data-store]').forEach(el => el.textContent = STORE[el.dataset.store]);
 reveal();
