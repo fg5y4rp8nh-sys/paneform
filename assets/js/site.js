@@ -103,7 +103,7 @@ function card(p) {
     </a>
     <div class="meta"><div><h3><span class="notranslate" translate="no">${p.name}</span> <span>· ${p.title}</span></h3><p>${p.short}</p></div><span translate="no" class="notranslate price${SALE ? ' sale' : ''}">${priceHtml(p)}</span></div>
     <div class="chips"><span class="chip">${p.pages > 1 ? p.pages + ' pages' : 'One screen'}</span>${p.tags.map(t => `<span class="chip">${t}</span>`).join('')}</div>
-    <div class="acts"><a class="btn ink ${buyCls(p)}" href="${checkoutUrl(p)}">${I.bag}Buy now</a><a class="btn lime setup-btn" href="${url('index.html')}?setup=${p.slug}#custom" title="We build it live for you">${I.rocket}We build it live · ${STORE.setupPrice}</a></div>
+    <div class="acts"><a class="btn ink ${buyCls(p)}" href="${checkoutUrl(p)}">${I.bag}Buy now</a><a class="btn lime setup-btn" href="${url('index.html')}?setup=${p.slug}#custom" title="We build it live for you">${I.rocket}<span class="notranslate" translate="no">We build it live</span> · ${STORE.setupPrice}</a></div>
   </article>`;
 }
 function wireCards(root = document) {
@@ -253,7 +253,7 @@ const Pages = {
       </div>
       <a class="setup" href="${url('index.html')}?setup=${p.slug}#custom">
         <span class="setup-ic">${I.rocket}</span>
-        <span class="setup-t"><b>We build it live <em>${STORE.setupPrice}</em></b><small>${p.slug === 'tempo' ? 'Live online with your logo, services and team — clients book from their own phones.' : 'Live online with your own logo, name and data — no code on your side.'}</small></span>
+        <span class="setup-t"><b><span class="notranslate" translate="no">We build it live</span> <em>${STORE.setupPrice}</em></b><small>${p.slug === 'tempo' ? 'Live online with your logo, services and team — clients book from their own phones.' : 'Live online with your own logo, name and data — no code on your side.'}</small></span>
         <span class="setup-go">${I.arrow}</span>
       </a>
       <ul>

@@ -385,3 +385,21 @@ section.sec{padding:90px 0}
   .tree i.c{display:none}
   .panel{padding:22px}
 }
+
+/* ---------- robust layout for long (translated) text ---------- */
+.btn{white-space:normal;height:auto;min-height:44px;padding-top:9px;padding-bottom:9px;line-height:1.25;text-align:center}
+.btn.sm{min-height:36px;padding-top:7px;padding-bottom:7px}
+.btn.lg{min-height:54px;padding-top:12px;padding-bottom:12px}
+.btn svg,.trust svg,.chip svg{flex-shrink:0}
+.pcard .acts .btn{flex:1 1 auto}
+.trust span{align-items:flex-start;line-height:1.35}
+.trust span svg{margin-top:1px}
+h1,h2,h3,h4,.btn,.chip,.meta h3{overflow-wrap:break-word;hyphens:auto}
+p,li,dd,summary,label,small{overflow-wrap:break-word}
+.meta>div{min-width:0}
+.setup-t b em,.price{flex-shrink:0}
+.lang-btn{white-space:nowrap}
+@media (max-width:720px){
+  .pcard .acts{display:grid;grid-template-columns:1fr}
+  .pcard .acts .btn{width:100%}
+}
