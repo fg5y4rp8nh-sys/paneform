@@ -233,7 +233,7 @@ const Pages = {
     const p = PRODUCTS.find(x => x.slug === slug) || PRODUCTS[0];
     document.title = `${p.name} — ${p.title} · ${STORE.name}`;
     const media = [...(p.video ? [{ v: p.video, poster: p.poster }] : []), ...p.images.map(i => ({ i }))];
-    $('#crumbs').innerHTML = `<a href="${url('templates.html')}">Templates</a><span>/</span><a href="${url('templates.html')}#${encodeURIComponent(p.category)}">${p.category}</a><span>/</span><span>${p.name}</span>`;
+    $('#crumbs').innerHTML = `<a href="${url('templates.html')}">Templates</a><span>/</span><a href="${url('templates.html')}#${encodeURIComponent(p.category)}">${p.category}</a><span>/</span><span class="notranslate" translate="no">${p.name}</span>`;
     $('#gallery').innerHTML = `<div class="main" id="gMain"></div><div class="thumbs" id="gThumbs">${media.map((m, k) => `<button class="${k ? '' : 'on'}" data-k="${k}"><img src="${url(m.poster || m.i)}" alt="">${m.v ? `<span class="play">${I.play}</span>` : ''}</button>`).join('')}</div>`;
     const show = k => {
       const m = media[k];
@@ -246,9 +246,9 @@ const Pages = {
       <span class="cat-l">${p.category}</span>
       <h1><span class="notranslate" translate="no">${p.name}</span><span class="serif">${p.title}</span></h1>
       <p class="short">${p.short}.</p>
-      <div class="pr${SALE ? ' sale' : ''}"><b>${priceHtml(p)}</b><span>one-time · USD</span>${SALE ? `<em class="off">${SALE.percent}% off · ${SALE.label.toLowerCase()}${saleEnds()}</em>` : ''}</div>
+      <div class="pr${SALE ? ' sale' : ''}"><b class="notranslate" translate="no">${priceHtml(p)}</b><span>one-time · USD</span>${SALE ? `<em class="off">${SALE.percent}% off · ${SALE.label.toLowerCase()}${saleEnds()}</em>` : ''}</div>
       <div class="acts">
-        <a class="btn ink lg ${buyCls(p)}" href="${checkoutUrl(p)}">${I.bag}Buy ${p.name}</a>
+        <a class="btn ink lg ${buyCls(p)}" href="${checkoutUrl(p)}">${I.bag}Buy <span class="notranslate" translate="no">${p.name}</span></a>
         <a class="btn lg" href="${url(p.demo)}" target="_blank" rel="noopener noreferrer">${I.eye}Live preview</a>
       </div>
       <a class="setup" href="${url('index.html')}?setup=${p.slug}#custom">
@@ -270,7 +270,7 @@ const Pages = {
       </div>`;
     $('#detail').innerHTML = `
       <div>
-        <h2>About ${p.name}</h2><p class="body">${p.description}</p>
+        <h2>About <span class="notranslate" translate="no">${p.name}</span></h2><p class="body">${p.description}</p>
         <h2>What it does</h2><ul class="feat">${p.features.map(f => `<li>${I.check}<span>${f}</span></li>`).join('')}</ul>
         <h2>Good for</h2><p class="body">${p.goodFor}</p>
         ${p.guide ? `<h2>How to use it</h2><ol class="guide">${p.guide.map(g => `<li><b>${g[0]}</b><span>${g[1]}</span></li>`).join('')}</ol>` : ''}
