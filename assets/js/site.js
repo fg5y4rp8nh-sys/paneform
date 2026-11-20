@@ -21,8 +21,49 @@ const I = {
   dl: '<svg viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>',
   search: '<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4-4"/></svg>',
   menu: '<svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>',
+  globe: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg>',
+  chev: '<svg viewBox="0 0 24 24"><path d="m7 10 5 5 5-5"/></svg>',
   play: '<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>'
 };
+
+/* ---------- Language ----------
+   English is the source. Other languages are translated in the browser by Google Translate,
+   which is loaded only after a visitor picks a language (the choice is kept in the googtrans cookie). */
+const LANGS = [['en', 'English'], ['es', 'Español'], ['pt', 'Português'], ['fr', 'Français'], ['de', 'Deutsch'], ['it', 'Italiano'], ['nl', 'Nederlands'], ['pl', 'Polski'], ['sv', 'Svenska'], ['cs', 'Čeština'], ['ro', 'Română'], ['tr', 'Türkçe'], ['uk', 'Українська'], ['ru', 'Русский'], ['ar', 'العربية'], ['hi', 'हिन्दी'], ['id', 'Bahasa Indonesia'], ['vi', 'Tiếng Việt'], ['th', 'ไทย'], ['ja', '日本語'], ['ko', '한국어'], ['zh-CN', '简体中文']];
+const curLang = () => { const m = document.cookie.match(/(?:^|;\s*)googtrans=\/en\/([^;]+)/); const c = m && decodeURIComponent(m[1]); return LANGS.some(l => l[0] === c) ? c : 'en'; };
+function setLang(code) {
+  const host = location.hostname, parts = host.split('.'), doms = ['', host, '.' + host];
+  if (parts.length > 2) doms.push('.' + parts.slice(-2).join('.'));
+  const exp = code === 'en' ? 'Thu, 01 Jan 1970 00:00:00 GMT' : new Date(Date.now() + 365 * 864e5).toUTCString();
+  doms.forEach(d => { document.cookie = `googtrans=${code === 'en' ? '' : '/en/' + code}; expires=${exp}; path=/` + (d ? `; domain=${d}` : ''); });
+  try { localStorage.setItem('pf-lang', code); } catch (e) {}
+  location.reload();
+}
+function loadTranslate() {
+  const lang = curLang();
+  document.documentElement.lang = lang;
+  if (lang === 'en') return;
+  if (lang === 'ar') document.documentElement.classList.add('rtl-lang');
+  const box = document.createElement('div'); box.id = 'gtEl'; box.hidden = true; document.body.appendChild(box);
+  window.gtInit = () => new google.translate.TranslateElement({ pageLanguage: 'en', autoDisplay: false }, 'gtEl');
+  const s = document.createElement('script'); s.src = 'https://translate.google.com/translate_a/element.js?cb=gtInit'; s.async = true; document.head.appendChild(s);
+}
+function langPicker() {
+  const cur = curLang(), name = LANGS.find(l => l[0] === cur)[1];
+  return `<div class="lang notranslate" translate="no">
+    <button class="lang-btn" id="langBtn" aria-haspopup="listbox" aria-expanded="false" aria-label="Language: ${name}">${I.globe}<b>${cur === 'zh-CN' ? 'ZH' : cur.toUpperCase()}</b>${I.chev}</button>
+    <ul class="lang-list" id="langList" role="listbox">${LANGS.map(l => `<li><button role="option" aria-selected="${l[0] === cur}" data-l="${l[0]}" lang="${l[0]}">${l[1]}${l[0] === cur ? I.check : ''}</button></li>`).join('')}</ul>
+  </div>`;
+}
+function wireLang() {
+  const btn = $('#langBtn'), list = $('#langList');
+  const close = () => { list.classList.remove('on'); btn.setAttribute('aria-expanded', 'false'); };
+  btn.onclick = e => { e.stopPropagation(); const on = list.classList.toggle('on'); btn.setAttribute('aria-expanded', on); if (on) $('[aria-selected="true"]', list).scrollIntoView({ block: 'nearest' }); };
+  list.onclick = e => { const b = e.target.closest('[data-l]'); if (!b) return; close(); if (b.dataset.l !== curLang()) setLang(b.dataset.l); };
+  document.addEventListener('click', e => { if (!e.target.closest('.lang')) close(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+  loadTranslate();
+}
 
 /* ---------- Header & footer ---------- */
 function layout() {
@@ -30,9 +71,10 @@ function layout() {
   document.body.insertAdjacentHTML('afterbegin', `${SALE ? `
   <div class="promo"><div class="wrap"><span class="tag">−${SALE.percent}%</span><span><b>${SALE.label}</b> on all ready-made apps${saleEnds()}</span><a href="${url('templates.html')}">Shop now ${I.arrow}</a></div></div>` : ''}
   <header class="hdr"><div class="wrap">
-    <a class="brand" href="${url('index.html')}"><span class="brand-mark"><i></i><i></i></span>${STORE.name}</a>
+    <a class="brand notranslate" translate="no" href="${url('index.html')}"><span class="brand-mark"><i></i><i></i></span>${STORE.name}</a>
     <nav class="nav" id="nav">${nav.map(n => `<a href="${url(n[0])}" class="${PAGE === n[2] || (PAGE === 'product' && n[2] === 'templates') ? 'on' : ''}">${n[1]}</a>`).join('')}</nav>
     <div class="hdr-r">
+      ${langPicker()}
       <a class="btn sm ink" href="${url('templates.html')}">Browse templates</a>
       <button class="menu-btn" id="menuBtn" aria-label="Menu">${I.menu}</button>
     </div>
@@ -45,6 +87,7 @@ function layout() {
     <div class="copy"><span>© ${new Date().getFullYear()} ${STORE.name}</span><span><a href="${url('terms.html')}">Terms</a> · <a href="${url('terms.html')}#refunds">Refunds</a> · <a href="${url('terms.html')}#privacy">Privacy</a></span></div>
   </div></footer>`);
   $('#menuBtn').onclick = () => $('#nav').classList.toggle('on');
+  wireLang();
   addEventListener('scroll', () => $('.hdr').classList.toggle('scrolled', scrollY > 4), { passive: true });
 }
 
@@ -56,7 +99,7 @@ function card(p) {
       ${p.video ? `<video muted loop playsinline preload="none" data-src="${url(p.video)}"></video>` : ''}
       <span class="peek btn sm">${I.eye}Details</span>
     </a>
-    <div class="meta"><div><h3>${p.name} <span>· ${p.title}</span></h3><p>${p.short}</p></div><span class="price${SALE ? ' sale' : ''}">${priceHtml(p)}</span></div>
+    <div class="meta"><div><h3><span class="notranslate" translate="no">${p.name}</span> <span>· ${p.title}</span></h3><p>${p.short}</p></div><span translate="no" class="notranslate price${SALE ? ' sale' : ''}">${priceHtml(p)}</span></div>
     <div class="chips"><span class="chip">${p.pages > 1 ? p.pages + ' pages' : 'One screen'}</span>${p.tags.map(t => `<span class="chip">${t}</span>`).join('')}</div>
     <div class="acts"><a class="btn ink ${buyCls(p)}" href="${checkoutUrl(p)}">${I.bag}Buy now</a><a class="btn lime setup-btn" href="${url('index.html')}?setup=${p.slug}#custom" title="We build it live for you">${I.rocket}We build it live · ${STORE.setupPrice}</a></div>
   </article>`;
@@ -199,7 +242,7 @@ const Pages = {
     show(0);
     $('#buy').innerHTML = `
       <span class="cat-l">${p.category}</span>
-      <h1>${p.name}<span class="serif">${p.title}</span></h1>
+      <h1><span class="notranslate" translate="no">${p.name}</span><span class="serif">${p.title}</span></h1>
       <p class="short">${p.short}.</p>
       <div class="pr${SALE ? ' sale' : ''}"><b>${priceHtml(p)}</b><span>one-time · USD</span>${SALE ? `<em class="off">${SALE.percent}% off · ${SALE.label.toLowerCase()}${saleEnds()}</em>` : ''}</div>
       <div class="acts">
@@ -232,7 +275,7 @@ const Pages = {
       </div>
       <div>
         <h2>In the zip</h2>
-        <div class="tree"><em>${p.slug}/</em><br>${p.files.map((f, i) => `<i>${i === p.files.length - 1 ? '└──' : '├──'}</i> ${f}`).join('<br>')}</div>
+        <div class="tree notranslate" translate="no"><em>${p.slug}/</em><br>${p.files.map((f, i) => `<i>${i === p.files.length - 1 ? '└──' : '├──'}</i> ${f}`).join('<br>')}</div>
         <h2>Changelog</h2><ul class="log">${p.changelog.map(c => `<li><b>v${c.v}</b><div>${c.text}<br><span>${new Date(c.date + 'T12:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span></div></li>`).join('')}</ul>
       </div>`;
     const rel = PRODUCTS.filter(x => x.slug !== p.slug).slice(0, 3);

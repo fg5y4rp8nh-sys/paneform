@@ -54,6 +54,24 @@ svg{display:block}
 .btn.lg{height:54px;padding:0 26px;font-size:16px}
 .btn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .menu-btn{display:none}
+/* language picker */
+.lang{position:relative}
+.lang-btn{display:flex;align-items:center;gap:6px;height:38px;padding:0 10px 0 11px;border-radius:11px;border:1px solid var(--line);background:transparent;color:var(--ink);font-family:inherit;font-size:13px;font-weight:600;line-height:1;cursor:pointer;transition:background .2s}
+.lang-btn:hover,.lang-btn[aria-expanded="true"]{background:var(--soft)}
+.lang-btn svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.lang-btn svg:last-child{width:14px;height:14px;opacity:.6;transition:transform .2s}
+.lang-btn[aria-expanded="true"] svg:last-child{transform:rotate(180deg)}
+.lang-list{position:absolute;right:0;top:calc(100% + 8px);z-index:40;width:220px;max-height:min(420px,70vh);overflow:auto;margin:0;padding:6px;list-style:none;background:var(--bg);border:1px solid var(--line);border-radius:14px;box-shadow:0 18px 40px -12px rgba(0,0,0,.22);opacity:0;visibility:hidden;transform:translateY(-4px);transition:opacity .16s,transform .16s,visibility .16s}
+.lang-list.on{opacity:1;visibility:visible;transform:none}
+.lang-list button{display:flex;align-items:center;justify-content:space-between;width:100%;padding:9px 11px;border:0;border-radius:9px;background:none;color:var(--ink);font-family:inherit;font-size:14px;font-weight:500;line-height:1.2;text-align:left;cursor:pointer}
+.lang-list button:hover{background:var(--soft)}
+.lang-list button[aria-selected="true"]{font-weight:650}
+.lang-list svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+/* hide Google Translate's own bar and tooltips */
+.skiptranslate iframe,iframe.skiptranslate,.goog-te-banner-frame,#goog-gt-tt,.goog-te-balloon-frame,.VIpgJd-ZVi9od-ORHb-OEVmcd,.VIpgJd-ZVi9od-aZ2wEe-wOHMyf{display:none!important}
+body{top:0!important}
+font[style*="background-color"]{background:none!important;box-shadow:none!important}
+.rtl-lang .body,.rtl-lang p,.rtl-lang h1,.rtl-lang h2,.rtl-lang h3,.rtl-lang li{unicode-bidi:plaintext}
 
 /* Hero */
 .hero{padding:70px 0 40px;text-align:center}
