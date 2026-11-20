@@ -253,7 +253,7 @@ const Pages = {
       </div>
       <a class="setup" href="${url('index.html')}?setup=${p.slug}#custom">
         <span class="setup-ic">${I.rocket}</span>
-        <span class="setup-t"><b><span class="notranslate" translate="no">We build it live</span> <em>${STORE.setupPrice}</em></b><small>${p.slug === 'tempo' ? 'Live online with your logo, services and team — clients book from their own phones.' : 'Live online with your own logo, name and data — no code on your side.'}</small></span>
+        <span class="setup-t"><b><span class="notranslate" translate="no">We build it live</span> <em class="notranslate" translate="no">${STORE.setupPrice}</em></b><small>${p.slug === 'tempo' ? 'Live online with your logo, services and team — clients book from their own phones.' : 'Live online with your own logo, name and data — no code on your side.'}</small></span>
         <span class="setup-go">${I.arrow}</span>
       </a>
       <ul>
