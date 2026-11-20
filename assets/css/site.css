@@ -330,7 +330,7 @@ section.sec{padding:90px 0}
   .faq-h{position:static}
   .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .cats{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .get,.prod,.detail{grid-template-columns:1fr}
+  .get,.prod,.detail{grid-template-columns:minmax(0,1fr)}
   .buy{position:static}
   .steps{grid-template-columns:1fr}
   .ftr .wrap{grid-template-columns:1fr 1fr}
@@ -403,3 +403,6 @@ p,li,dd,summary,label,small{overflow-wrap:break-word}
   .pcard .acts{display:grid;grid-template-columns:1fr}
   .pcard .acts .btn{width:100%}
 }
+/* grid and flex children may shrink below their content width, so long words never push the page wider */
+.get>*,.prod>*,.detail>*,.grid>*,.cats>*,.steps>*,.why>*,.req>*,.ftr .wrap>*,.buy,.panel{min-width:0}
+.panel .tree{max-width:100%}
