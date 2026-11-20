@@ -44,6 +44,8 @@ function loadTranslate() {
   document.documentElement.lang = lang;
   if (lang === 'en') return;
   if (lang === 'ar') document.documentElement.classList.add('rtl-lang');
+  // headings with a highlighted word are split into pieces; join them so the sentence translates as a whole
+  $$('h1, h2').forEach(h => { if (h.querySelector('.hl, br')) { $$('br', h).forEach(b => b.replaceWith(' ')); $$('.hl', h).forEach(x => x.replaceWith(x.textContent)); } });
   const box = document.createElement('div'); box.id = 'gtEl'; box.hidden = true; document.body.appendChild(box);
   window.gtInit = () => new google.translate.TranslateElement({ pageLanguage: 'en', autoDisplay: false }, 'gtEl');
   const s = document.createElement('script'); s.src = 'https://translate.google.com/translate_a/element.js?cb=gtInit'; s.async = true; document.head.appendChild(s);
