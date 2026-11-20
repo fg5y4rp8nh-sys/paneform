@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kiln — Usage-based billing</title>
+<meta name="description" content="Usage-based billing for an API product: metered usage, graduated tiers, prepaid credits, spend limits and a customer billing portal. Plain HTML, CSS and JavaScript.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+  <aside class="side" id="side">
+    <div class="logo"><span class="m"><i></i></span>Kiln<small>billing</small></div>
+    <p class="sl">Billing console</p>
+    <a class="nv" href="#overview" data-p="overview"><svg class="ic" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M21 20H3"/></svg>Usage revenue</a>
+    <a class="nv" href="#customers" data-p="customers"><svg class="ic" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6 6 0 0 1 3.5 6"/></svg>Customers<span class="b" id="alertCount"></span></a>
+    <a class="nv" href="#pricing" data-p="pricing"><svg class="ic" viewBox="0 0 24 24"><path d="M4 18h4v-4H4zM10 18h4V9h-4zM16 18h4V5h-4z"/></svg>Tiers &amp; prices</a>
+    <p class="sl">Customer view</p>
+    <a class="nv" href="#usage" data-p="usage"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7v5l3 2"/></svg>Usage &amp; billing</a>
+    <a class="nv" href="#calculator" data-p="calculator"><svg class="ic" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2.5"/><path d="M8.5 7h7M8.5 11h1M12 11h1M15 11h.5M8.5 15h1M12 15h1M15 15h.5"/></svg>Price calculator</a>
+    <a class="nv" href="#credits" data-p="credits"><svg class="ic" viewBox="0 0 24 24"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 10h19M6.5 15h4"/></svg>Add credits</a>
+    <div class="meter"><p>Stripe meter events today</p><b id="meterNum">418,205</b><div class="bar"><i id="meterBar"></i></div><p style="margin-top:6px">64% of the daily average · live</p></div>
+  </aside>
+  <main class="main">
+    <section class="page" id="p-overview"></section>
+    <section class="page" id="p-customers"></section>
+    <section class="page" id="p-pricing"></section>
+    <section class="page" id="p-usage"></section>
+    <section class="page" id="p-calculator"></section>
+    <section class="page" id="p-credits"></section>
+  </main>
+</div>
+<div class="ovl" id="ovl"></div>
+<aside class="drw" id="drw" role="dialog" aria-modal="true" aria-label="Customer"></aside>
+<div class="modal" id="modal" role="dialog" aria-modal="true"></div>
+<div class="toast" id="toast" role="status"></div>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

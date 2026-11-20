@@ -58,7 +58,7 @@ function card(p) {
     </a>
     <div class="meta"><div><h3>${p.name} <span>· ${p.title}</span></h3><p>${p.short}</p></div><span class="price${SALE ? ' sale' : ''}">${priceHtml(p)}</span></div>
     <div class="chips"><span class="chip">${p.pages > 1 ? p.pages + ' pages' : 'One screen'}</span>${p.tags.map(t => `<span class="chip">${t}</span>`).join('')}</div>
-    <div class="acts"><a class="btn ink lemonsqueezy-button" href="${checkoutUrl(p)}">${I.bag}Buy now</a><a class="btn lime setup-btn" href="${url('index.html')}?setup=${p.slug}#custom" title="We build it live for you">${I.rocket}We build it live · ${STORE.setupPrice}</a></div>
+    <div class="acts"><a class="btn ink ${buyCls(p)}" href="${checkoutUrl(p)}">${I.bag}Buy now</a><a class="btn lime setup-btn" href="${url('index.html')}?setup=${p.slug}#custom" title="We build it live for you">${I.rocket}We build it live · ${STORE.setupPrice}</a></div>
   </article>`;
 }
 function wireCards(root = document) {
@@ -79,7 +79,8 @@ function loadLemon() {
   s.onload = () => window.createLemonSqueezy && window.createLemonSqueezy();
   document.head.appendChild(s);
 }
-const checkoutUrl = p => p.checkout.split('?')[0] + '?embed=1&media=0&logo=0' + (SALE && SALE.code ? '&checkout%5Bdiscount_code%5D=' + encodeURIComponent(SALE.code) : '&discount=0');
+const buyCls = p => p.checkout ? 'lemonsqueezy-button' : '';
+const checkoutUrl = p => !p.checkout ? url('index.html') + '?buy=' + p.slug + '#custom' : p.checkout.split('?')[0] + '?embed=1&media=0&logo=0' + (SALE && SALE.code ? '&checkout%5Bdiscount_code%5D=' + encodeURIComponent(SALE.code) : '&discount=0');
 
 /* ---------- Reveal on scroll ---------- */
 function reveal() {
@@ -110,6 +111,12 @@ function wireRequest() {
   const name = $('#rName'), msg = $('#reqMsg'), btn = $('button[type=submit]', f);
   const sp = PRODUCTS.find(p => p.slug === new URLSearchParams(location.search).get('setup'));
   let service = '';
+  const bp = PRODUCTS.find(p => p.slug === new URLSearchParams(location.search).get('buy'));
+  if (bp && !sp) {
+    service = `Покупка шаблона ${bp.name} (${usd(finalPrice(bp))})`;
+    $('#rNote').value = `I'd like to buy the ${bp.name} template. Please send me a payment link.`;
+    $('#custom .req-l h2').textContent = `Get ${bp.name}`;
+  }
   if (sp) {
     service = `Установка шаблона ${sp.name} (${STORE.setupPrice})`;
     $('#rNote').value = `Please set up ${sp.name} for me: put it online with my logo, name and data.`;
@@ -196,7 +203,7 @@ const Pages = {
       <p class="short">${p.short}.</p>
       <div class="pr${SALE ? ' sale' : ''}"><b>${priceHtml(p)}</b><span>one-time · USD</span>${SALE ? `<em class="off">${SALE.percent}% off · ${SALE.label.toLowerCase()}${saleEnds()}</em>` : ''}</div>
       <div class="acts">
-        <a class="btn ink lg lemonsqueezy-button" href="${checkoutUrl(p)}">${I.bag}Buy ${p.name}</a>
+        <a class="btn ink lg ${buyCls(p)}" href="${checkoutUrl(p)}">${I.bag}Buy ${p.name}</a>
         <a class="btn lg" href="${url(p.demo)}" target="_blank" rel="noopener noreferrer">${I.eye}Live preview</a>
       </div>
       <a class="setup" href="${url('index.html')}?setup=${p.slug}#custom">
@@ -214,13 +221,14 @@ const Pages = {
         <div><span>Pages</span><b>${p.pages}</b></div>
         <div><span>Version</span><b>${p.version}</b></div>
         <div><span>Built with</span><b>${p.stack}</b></div>
-        <div><span>Dependencies</span><b>None</b></div>
+        <div><span>Dependencies</span><b>${p.deps || 'None'}</b></div>
       </div>`;
     $('#detail').innerHTML = `
       <div>
         <h2>About ${p.name}</h2><p class="body">${p.description}</p>
         <h2>What it does</h2><ul class="feat">${p.features.map(f => `<li>${I.check}<span>${f}</span></li>`).join('')}</ul>
         <h2>Good for</h2><p class="body">${p.goodFor}</p>
+        ${p.guide ? `<h2>How to use it</h2><ol class="guide">${p.guide.map(g => `<li><b>${g[0]}</b><span>${g[1]}</span></li>`).join('')}</ol>` : ''}
       </div>
       <div>
         <h2>In the zip</h2>

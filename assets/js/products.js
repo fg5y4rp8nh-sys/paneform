@@ -31,6 +31,57 @@ const CATEGORIES = ['CRM', 'Finance', 'E-commerce', 'Booking', 'Operations', 'An
 
 const PRODUCTS = [
   {
+    slug: 'kiln',
+    name: 'Kiln',
+    title: 'Usage-based billing for APIs',
+    short: 'Charge per use through Stripe: a revenue console for you and usage, limits and prepaid credits for your customers',
+    category: 'Finance',
+    tags: ['Billing', 'Stripe', 'SaaS'],
+    price: 60,
+    // Create the product in Lemon Squeezy and paste its checkout link here. Until then "Buy" opens the request form.
+    checkout: '',
+    demo: 'demos/kiln/index.html',
+    video: 'assets/products/kiln/reel.mp4',
+    poster: 'assets/products/kiln/poster.webp',
+    cover: 'assets/products/kiln/cover.webp',
+    images: [
+      'assets/products/kiln/cover.webp',
+      'assets/products/kiln/usage.webp',
+      'assets/products/kiln/customers.webp',
+      'assets/products/kiln/pricing.webp',
+      'assets/products/kiln/calculator.webp',
+      'assets/products/kiln/credits.webp',
+      'assets/products/kiln/mobile.webp'
+    ],
+    pages: 6,
+    version: '1.0.0',
+    released: '2026-11-20',
+    size: '242 KB',
+    stack: 'HTML, CSS, JavaScript + Node.js',
+    deps: 'None · Stripe example: stripe, express',
+    goodFor: 'SaaS and API products that charge per use — per image, API call, message or GB — and developers who need to build pay-as-you-go billing on Stripe for a client.',
+    description: 'Kiln is the billing side of a product that charges for what people actually use. You get two sets of screens in one app. The billing console shows usage revenue for the month, images per day by model with a forecast, the customers closest to their spend limit and an invoice preview that explains every line of a graduated price. The customer pages show the prepaid balance and how many days it will last, spend against a monthly limit, auto top-up, API keys, a price calculator and a page to buy credits. Every amount comes from one billing function, so change a tier price and every bill in the app updates. The zip also includes a small Node.js server that creates the Stripe meter and prices, reports usage, sells credits and verifies webhooks.',
+    features: [
+      'Usage revenue console: month-to-date revenue, usage per day by model and a month-end forecast',
+      'Invoice preview that shows how graduated tiers add up, line by line',
+      'Customers with filters, search and a side panel to raise limits and grant credits',
+      'Editable tier prices and plan fees — every bill in the app recalculates',
+      'Customer portal: prepaid balance, spend limit with a 90% alert, auto top-up and API keys',
+      'Price calculator with a volume slider and the average price per unit',
+      'Credit packs with bonuses and a validated card form with a success screen',
+      'Stripe example: meter, graduated price, usage events, credit Checkout and webhooks'
+    ],
+    guide: [
+      ['Open the demo', 'Unzip the folder and open index.html, or run npm install and npm run dev. Everything works with sample data.'],
+      ['Set your prices', 'Change tiers, plans and credit packs at the top of data.js. Rename “images” to what you charge for: API calls, tokens, SMS or GB.'],
+      ['Create them in Stripe', 'In the stripe/ folder add your test key to .env and run npm run setup. It creates the usage meter, the graduated price and the plan fees.'],
+      ['Report usage', 'Call POST /api/usage from server.js each time your product does billable work. Stripe adds it up and invoices at month end.'],
+      ['Load real data', 'Fill the same DATA shape from your database or the example endpoints. Every page, chart and total follows.']
+    ],
+    files: ['index.html', 'style.css', 'data.js', 'app.js', 'fonts/', 'stripe/setup.js', 'stripe/server.js', 'stripe/.env.example', 'README.md', 'LICENSE.txt', 'package.json', 'vite.config.js'],
+    changelog: [{ v: '1.0.0', date: '2026-11-20', text: 'First release.' }]
+  },
+  {
     slug: 'remit',
     name: 'Remit',
     title: 'Invoices & quotes app',
