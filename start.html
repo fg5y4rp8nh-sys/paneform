@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Paneform — launching your portal</title>
+<meta name="description" content="Upload your logo, catalog and dealer list to launch your portal.">
+<meta property="og:title" content="Paneform — launching your portal">
+<meta property="og:description" content="Upload your logo, catalog and dealer list to launch your portal.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/pf.css">
+</head>
+<body data-page="start">
+<main>
+  <section class="sec co"><div class="wrap">
+    <div class="ok-h"><span class="dot-ic"><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></span><div><h1 class="co-h" style="margin:0">Payment received. Launching your portal</h1><p id="stPlan">Your Lemon Squeezy receipt is already in your inbox.</p></div></div>
+    <div class="co-grid st">
+      <form class="req-f st-f" id="stForm" novalidate>
+        <h2>Portal materials</h2>
+        <p class="st-note">You can send what you have now and the rest later by replying to our email.</p>
+        <div class="fld"><label for="sCo">Company name</label><input id="sCo" name="company" autocomplete="organization"><small class="err">Enter your company name.</small></div>
+        <div class="st-2">
+          <div class="fld"><label for="sName">Your name</label><input id="sName" name="name" autocomplete="name"><small class="err">Tell us what to call you.</small></div>
+          <div class="fld"><label for="sMail">Work email</label><input id="sMail" name="email" type="email" autocomplete="email"><small class="err">We need an email — your access details will go there.</small></div>
+        </div>
+        <div class="st-2">
+          <div class="fld"><label for="sPhone">WhatsApp <em>(optional)</em></label><input id="sPhone" name="phone" type="tel" autocomplete="tel"></div>
+          <div class="fld"><label for="sDom">Portal address <em>(optional)</em></label><input id="sDom" name="domain"></div>
+        </div>
+        <div class="fld"><label for="sColor">Brand color</label><div class="st-color"><input id="sColor" name="color" type="color" value="#1F4FD8"><span id="sColorV">#1F4FD8</span></div></div>
+        <div class="st-files">
+          <label class="drop"><input type="file" name="logo" accept="image/*,.svg,.pdf"><b>Logo</b><span>PNG, SVG or PDF</span><i>Choose file</i></label>
+          <label class="drop"><input type="file" name="catalog" accept=".xlsx,.xls,.csv,.pdf"><b>Catalog and prices</b><span>Excel, CSV or PDF price list</span><i>Choose file</i></label>
+          <label class="drop"><input type="file" name="dealers" accept=".xlsx,.xls,.csv,.pdf"><b>Dealer list</b><span>Name, email, price level</span><i>Choose file</i></label>
+        </div>
+        <div class="fld"><label for="sNote">What else to know <em>(optional)</em></label><textarea id="sNote" name="comment" rows="3"></textarea></div>
+        <button class="btn ink lg" type="submit">Send materials<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        <p class="req-msg" id="stMsg" role="status" aria-live="polite"></p>
+      </form>
+      <aside class="co-sum">
+        <h2>What’s next</h2>
+        <ol class="req-steps dark-off">
+          <li><b>Today</b><span>We’ll email you within 30 minutes to go over the details.</span></li>
+          <li><b>Days 1–6</b><span>We load your catalog and set up colors, prices and dealer accounts.</span></li>
+          <li><b>Day 7</b><span>The portal is live. Dealers get their logins, and we send your team a short video guide.</span></li>
+        </ol>
+      </aside>
+    </div>
+    <div class="req-done st-done" id="stDone" hidden><span class="dot-ic"><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></span><h3>We’ve got your materials</h3><p>We’ll email you within 30 minutes. Your portal will be ready within 7 days.</p><a class="btn" href="index.html">Back to home</a></div>
+  </div></section>
+</main>
+<script src="assets/js/config.js"></script>
+<script src="assets/js/app.js"></script>
+<script>{
+  const q = new URLSearchParams(location.search), p = PORTAL.plans[q.get('plan')], per = q.get('per') === 'y' ? 'yearly' : 'every 3 months';
+  const ai = q.get('ai') === '1';
+  if (p) document.getElementById('stPlan').textContent = 'Your ' + p.name + ' plan' + (ai ? ' with the AI assistant' : '') + ', billed ' + per + '. Your Lemon Squeezy receipt is already in your inbox.';
+  const f = document.getElementById('stForm'), msg = document.getElementById('stMsg');
+  const col = document.getElementById('sColor'); col.addEventListener('input', () => document.getElementById('sColorV').textContent = col.value.toUpperCase());
+  f.querySelectorAll('.drop input').forEach(i => i.addEventListener('change', () => { const l = i.closest('.drop'); l.classList.toggle('has', !!i.files.length); l.querySelector('i').textContent = i.files.length ? i.files[0].name : 'Choose file'; }));
+  const need = ['sCo', 'sName', 'sMail'].map(id => document.getElementById(id));
+  need.forEach(el => el.addEventListener('input', () => el.closest('.fld').classList.remove('bad')));
+  f.addEventListener('submit', async e => {
+    e.preventDefault(); msg.textContent = '';
+    const bad = need.filter(el => !el.value.trim() || (el.type === 'email' && !/^\S+@\S+\.\S+$/.test(el.value.trim())));
+    need.forEach(el => el.closest('.fld').classList.toggle('bad', bad.includes(el)));
+    if (bad.length) { bad[0].focus(); return; }
+    const btn = f.querySelector('button[type=submit]'); btn.disabled = true;
+    try {
+      const d = new FormData(f), v = k => String(d.get(k) || '').trim();
+      const files = {}; let tooBig = false;
+      for (const k of ['logo', 'catalog', 'dealers']) { const file = d.get(k); if (file && file.size) { if (file.size > 20 * 1024 * 1024) tooBig = true; files[k] = file; } }
+      if (tooBig) { msg.textContent = 'Each file must be under 20 MB. You can send bigger files later by replying to our email.'; return; }
+      const text = ['✅ Оплачен дилерский портал — материалы', 'Тариф: ' + (p ? p.name : '—') + (ai ? ' + AI assistant' : '') + ', ' + per, '', 'Компания: ' + v('company'), 'Имя: ' + v('name'), 'Почта: ' + v('email'), 'Мессенджер: ' + (v('phone') || '—'), 'Адрес портала: ' + (v('domain') || '—'), 'Цвет: ' + v('color'), '', 'Комментарий:', v('comment') || '—'].join('\n');
+      const r = await sendLead({ text, company: v('company') }, files);
+      if (!r.ok) throw new Error('not sent');
+      document.querySelector('.co-grid.st').hidden = true; document.getElementById('stDone').hidden = false; scrollTo(0, 0);
+    } catch (err) { msg.textContent = 'Couldn’t send. Check your connection and try again.'; }
+    finally { btn.disabled = false; }
+  });
+}</script>
+</body>
+</html>

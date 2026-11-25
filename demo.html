@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Paneform — live demo</title>
+<meta name="description" content="A live demo of a Paneform project.">
+<meta property="og:title" content="Paneform — live demo">
+<meta property="og:description" content="A live demo of a Paneform project.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/pf.css">
+</head>
+<body data-page="demo" data-bare="1" class="pv">
+<div class="pv-bar">
+  <a class="pv-back" id="dBack" href="index.html"><svg viewBox="0 0 24 24"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>Back</a>
+  <div class="pv-t"><b id="dTitle">Live demo</b><span id="dSub">Everything is clickable: the data is sample data</span></div>
+  <a class="btn" id="dCta" href="index.html#contact">I want this</a>
+</div>
+<iframe class="pv-frame" id="dFrame" title="Live demo"></iframe>
+<script>{
+  const D = {
+    clarix: ['Clarix — CRM and client portal', 'saas.html'],
+    portal: ['Kalderra — dealer portal', 'index.html'],
+    'portal-m': ['Kalderra — manufacturer side', 'index.html'],
+    dental: ['Dental clinic — Lotus Arc design', 'sites.html'],
+    counsellor: ['Therapist or coach — Claire Whitmore design', 'sites.html'],
+    homes: ['Construction company — Fernleigh Homes design', 'sites.html'],
+    tours: ['Tours and travel — Wayfolk design', 'sites.html'],
+    store: ['Online store — Tidewell design', 'sites.html']
+  };
+  const k = D[location.hash.slice(1)] ? location.hash.slice(1) : 'clarix', [title, back] = D[k];
+  document.getElementById('dTitle').textContent = title;
+  document.getElementById('dBack').href = back;
+  document.getElementById('dCta').href = back + '#contact';
+  document.getElementById('dFrame').src = k === 'portal-m' ? 'demos/portal/index.html#/m' : 'demos/' + k + '/index.html';
+  document.title = 'Paneform — ' + title;
+  addEventListener('hashchange', () => location.reload());
+}</script>
+<script src="assets/js/config.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>

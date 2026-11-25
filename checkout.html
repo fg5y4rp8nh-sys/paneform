@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Paneform — dealer portal subscription checkout</title>
+<meta name="description" content="Choose a plan and billing period for your dealer portal.">
+<meta property="og:title" content="Paneform — dealer portal subscription checkout">
+<meta property="og:description" content="Choose a plan and billing period for your dealer portal.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/pf.css">
+</head>
+<body data-page="checkout">
+<main>
+  <section class="sec co"><div class="wrap">
+    <p class="crumbs"><a href="index.html#pricing">Plans</a> / Checkout</p>
+    <h1 class="co-h">Order a dealer portal</h1>
+    <div class="co-grid">
+      <div class="co-l">
+        <fieldset class="co-f"><legend>Plan</legend><div class="co-opts" id="coPlan"></div></fieldset>
+        <fieldset class="co-f"><legend>Billing period</legend><div class="co-opts" id="coPer"></div></fieldset>
+        <fieldset class="co-f"><legend>Add-ons</legend><label class="co-o co-ai"><input type="checkbox" id="coAi"><span><b>AI assistant for dealers <em id="aiPrice"></em></b><small>Answers dealers about stock, prices and orders, and builds an order from a message. Not included in the plan — added separately.</small></span></label></fieldset>
+        <div class="co-next">
+          <h2>What happens after payment</h2>
+          <ol class="req-steps dark-off">
+            <li><b>Upload your materials</b><span>Right after payment a page opens where you can attach your logo, catalog and dealer list.</span></li>
+            <li><b>We set up your portal</b><span>We’ll reply within 30 minutes and have your portal ready within 7 days.</span></li>
+            <li><b>Dealers get their logins</b><span>We’ll send your team a short video guide on handling orders.</span></li>
+          </ol>
+        </div>
+      </div>
+      <aside class="co-sum">
+        <h2>Total</h2>
+        <dl>
+          <div><dt>Plan</dt><dd id="sPlan"></dd></div>
+          <div><dt>Billing</dt><dd id="sPer"></dd></div>
+          <div><dt>Portal setup</dt><dd>Included</dd></div>
+          <div id="sAiRow" hidden><dt>AI assistant</dt><dd id="sAi"></dd></div>
+          <div class="tot"><dt>Due now</dt><dd id="sTot"></dd></div>
+        </dl>
+        <p class="co-then" id="sThen"></p>
+        <a class="btn ink lg" id="coPay" href="start.html">Go to payment<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <ul class="co-trust">
+          <li><svg viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 4.5 3 8.3 7 10 4-1.7 7-5.5 7-10V6z"/><path d="m9 12 2 2 4-4"/></svg><span>Payment on a secure Lemon Squeezy page: card, Apple Pay, Google Pay or PayPal</span></li>
+          <li><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><span>Prefer Fiverr? <a href="index.html#contact" style="text-decoration:underline;text-underline-offset:3px">Message us</a> — we’ll set up the same plan there as a protected order</span></li>
+          <li><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><span>Money back within 14 days if the portal isn’t a fit</span></li>
+          <li><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><span>Cancel your subscription any time</span></li>
+          <li><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><span>Receipts and tax documents arrive by email automatically</span></li>
+        </ul>
+      </aside>
+    </div>
+  </div></section>
+</main>
+<script src="assets/js/config.js"></script>
+<script src="assets/js/app.js"></script>
+<script>{
+  const q = new URLSearchParams(location.search);
+  let plan = PORTAL.plans[q.get('plan')] ? q.get('plan') : 'growth', per = q.get('per') === 'y' ? 'y' : 'q', ai = q.get('ai') === '1';
+  const AI = PORTAL.ai, aiBox = document.getElementById('coAi'); aiBox.checked = ai;
+  const m = n => '$' + n.toLocaleString('en-US');
+  const PER = { q: ['Every 3 months', 'every 3 months'], y: ['Yearly', 'every year'] };
+  const opt = (name, val, on, title, sub) => '<label class="co-o"><input type="radio" name="' + name + '" value="' + val + '"' + (on ? ' checked' : '') + '><span><b>' + title + '</b><small>' + sub + '</small></span></label>';
+  function draw() {
+    document.getElementById('coPlan').innerHTML = Object.entries(PORTAL.plans).map(([k, p]) => opt('plan', k, k === plan, p.name, p.dealers + ' · ' + m(p.m) + ' a month')).join('');
+    const p = PORTAL.plans[plan];
+    document.getElementById('coPer').innerHTML = opt('per', 'q', per === 'q', 'Every 3 months', m(p.q) + ' per 3 months') + opt('per', 'y', per === 'y', 'Yearly', m(p.y) + ' per year — 2 months free');
+    const aiAmt = ai ? (per === 'y' ? AI.y : AI.q) : 0, amt = (per === 'y' ? p.y : p.q) + aiAmt;
+    document.getElementById('aiPrice').textContent = '+' + m(per === 'y' ? AI.y : AI.q) + (per === 'y' ? ' per year' : ' per 3 months');
+    document.getElementById('sAiRow').hidden = !ai; document.getElementById('sAi').textContent = m(aiAmt);
+    document.getElementById('sPlan').textContent = p.name + ', ' + p.dealers;
+    document.getElementById('sPer').textContent = PER[per][0];
+    document.getElementById('sTot').textContent = m(amt);
+    document.getElementById('sThen').textContent = 'Then ' + m(amt) + ' ' + PER[per][1] + ', charged automatically. That’s ' + m(Math.round(amt / (per === 'y' ? 12 : 3))) + ' a month.';
+    const link = p.checkout[per + (ai ? 'ai' : '')];
+    document.getElementById('coPay').href = link || ('start.html?plan=' + plan + '&per=' + per + (ai ? '&ai=1' : ''));
+    history.replaceState(null, '', '?plan=' + plan + '&per=' + per + (ai ? '&ai=1' : ''));
+  }
+  document.addEventListener('change', e => { if (e.target.name === 'plan') plan = e.target.value; if (e.target.name === 'per') per = e.target.value; if (e.target.id === 'coAi') ai = e.target.checked; draw(); });
+  draw();
+}</script>
+</body>
+</html>
