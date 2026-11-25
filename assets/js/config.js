@@ -7,7 +7,7 @@ const STORE = {
   // Ключа бота на сайте нет. Вставьте сюда адрес воркера, например 'https://paneform-forms.<имя>.workers.dev'
   formEndpoint: '',
   // Чат на сайте: true — виден всем. Для проверки откройте любую страницу с ?chat=on (выключить: ?chat=off)
-  chat: { enabled: false },
+  chat: { enabled: true },
   // Пока сервера нет, заявки идут напрямую в Telegram (ключ виден в коде — заменить на воркер, когда будут клиенты)
   telegram: { bot: 'NGpyRU15WTl3NWpRajZDM2pQYVY3UUI4UzY1SkFUUGxFQUE6MzA2Mzg5OTcyOQ==', chat: '5448288818' },
   threads: 'https://www.threads.net/@paneform',
