@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script>document.write('<base href="' + (location.hostname.endsWith('github.io') ? '/paneform/' : '/') + '">')</script>
+<script>document.write('<base href="' + (/^\/paneform(\/|$)/.test(location.pathname) ? '/paneform/' : '/') + '">')</script>
 <title>Page not found — Paneform</title>
 <meta name="robots" content="noindex">
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
