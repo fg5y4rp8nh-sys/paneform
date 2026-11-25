@@ -224,5 +224,7 @@ function reviews() {
 
 if (!document.body.dataset.bare) layout();
 faqs(); reviews(); requestForm(); switchers(); pricing(); reveal();
+// чат подключается отдельным файлом
+{ const s = document.createElement('script'); s.src = 'assets/js/chat.js?v=' + ((document.querySelector('script[src*="app.js"]') || {}).src || '').split('v=')[1]; document.body.appendChild(s); }
 // На страницах без формы заявки ссылки «#contact» ведут к форме на главной
 if (!document.getElementById('contact')) $$('a[href="#contact"]').forEach(a => { a.href = 'index.html#contact'; });
