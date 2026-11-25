@@ -401,3 +401,4 @@ html[dir=rtl] .lang-list{right:auto;left:0}
 }
 .pc-badge[hidden]{display:none}
 .pc-f textarea:focus,.pc-contact input:focus{outline:none;border-color:var(--ink);box-shadow:0 0 0 1px var(--ink)}
+.pc[dir=rtl] .pc-f button svg{transform:scaleX(-1)}
