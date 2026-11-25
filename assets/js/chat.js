@@ -27,13 +27,13 @@
   <section class="pc" id="pc" role="dialog" aria-label="Chat with Paneform" hidden>
     <header class="pc-h">
       <span class="brand-mark" aria-hidden="true"><i></i><i></i></span>
-      <div><b class="notranslate" translate="no">Paneform</b><small><i class="pc-dot"></i>Usually replies within 30 minutes</small></div>
+      <div><b class="notranslate" translate="no">Paneform</b><small><i class="pc-dot"></i>Online</small></div>
       <button class="pc-x" id="pcX" type="button" aria-label="Close chat">${IC.x}</button>
     </header>
     <div class="pc-body" id="pcBody" aria-live="polite"></div>
     <form class="pc-contact" id="pcContact" hidden>
-      <label for="pcC">If you leave, where should we reply?</label>
-      <div><input id="pcC" name="c" autocomplete="email" maxlength="120"><button type="submit">Save</button></div>
+      <label for="pcC">Leave your phone number or email — we’ll reply there if you leave the page.</label>
+      <div><input id="pcC" name="c" autocomplete="on" inputmode="email" maxlength="120"><button type="submit">Save</button></div>
     </form>
     <form class="pc-f" id="pcF">
       <textarea id="pcT" rows="1" maxlength="${MAX_LEN}" aria-label="Message"></textarea>
