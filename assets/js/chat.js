@@ -55,7 +55,7 @@
   }
   function draw() {
     body.innerHTML = '';
-    body.append(bubble({ from: 'pf', text: 'Hi! Ask us anything about dealer portals, SaaS or websites — we reply right here.', t: st.msgs[0] ? st.msgs[0].t : Date.now() }));
+    body.append(bubble({ from: 'pf', text: 'Hello! Ask your question.', t: st.msgs[0] ? st.msgs[0].t : Date.now() }));
     st.msgs.forEach(m => body.append(bubble(m)));
     cform.hidden = !st.msgs.some(m => m.from === 'me') || !!st.contact;
     body.scrollTop = body.scrollHeight;
